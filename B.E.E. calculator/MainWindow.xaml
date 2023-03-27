@@ -1,0 +1,1496 @@
+﻿<Window x:Class="B.E.E._calculator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:B.E.E._calculator"
+        mc:Ignorable="d"
+        Title="BEE calculator" Height="auto" Width="auto">
+    <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="200"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <ListView Name="Pokazi_projekte" Grid.ColumnSpan="3">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Name="projektList_grid">
+                            <Grid Margin="10">
+                                <TextBlock Text="{Binding Naziv_projekta}" />
+                            </Grid>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Button Grid.Row="1" Grid.Column="0" Click="add_new_project">ADD</Button>
+            <Button Grid.Row="1" Grid.Column="1" Click="delete_project">DELETE</Button>
+            <Button Grid.Row="1" Grid.Column="2" Click="edit_project">EDIT</Button>
+
+            <Button Grid.Row="2" Grid.Column="0" Click="SaveFile">SAVE</Button>
+            <Button Grid.Row="2" Grid.Column="1" Click="OpenFile">LOAD</Button>
+
+        </Grid>
+        <Grid Grid.Column="0">
+            <TabControl>
+            <TabItem Header="Projekt">
+                <TabControl>
+                    <TabItem Header="Podatki o projektu">
+                        <Grid Background="LightYellow">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="160"/>
+                                <ColumnDefinition Width="35"/>
+                                <ColumnDefinition Width="10.5"/>
+                                <ColumnDefinition Width="189.5"/>
+
+                                <ColumnDefinition Width="20"/>
+                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition Width="20"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="25"/>
+                                <RowDefinition Height="25"/>
+                                <RowDefinition Height="25"/>
+                                <RowDefinition Height="25"/>
+
+                                <RowDefinition Height="25"/>
+                                <RowDefinition Height="25"/>
+                                <RowDefinition Height="25"/>
+                                <RowDefinition Height="25"/>
+
+                                <RowDefinition Height="25"/>
+                                <RowDefinition Height="25"/>
+                                <RowDefinition Height="25"/>
+                                <RowDefinition Height="25"/>
+                            </Grid.RowDefinitions>
+
+                            <Label Grid.Row="1" Grid.Column="0" Content="Naziv projekta" HorizontalAlignment="Left" Margin="74,0,0,0"/>
+                                <TextBox x:Name="naziv_projekta_vnos" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2"/>
+
+                            <Label Grid.Row="2" Grid.Column="0" Content="Ulica, kraj" HorizontalAlignment="Left" Margin="99,0,0,0"/>
+                                <TextBox x:Name="ulica_kraj_vnos" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2"/>
+
+                            <Label Grid.Row="3" Grid.Column="0" Content="Katastrska občina" HorizontalAlignment="Left" Margin="58,0,0,0"/>
+                            <ComboBox x:Name="katastrska_obcina_combobox" IsEditable="True" IsTextSearchEnabled="True" TextSearch.TextPath="Ime" ItemsSource="{Binding obcine_list }" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="10"/>
+                                                <ColumnDefinition Width="200"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="10"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Text="{Binding Ime}" Grid.Column="1"/>
+                                            <TextBlock Text="{Binding Sifra}" Grid.Column="2"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+
+                            <Label Grid.Row="5" Grid.Column="0" Content="GK koordinate kraja" HorizontalAlignment="Left" Margin="46,0,0,0"/>
+                            <Label Grid.Row="5" Grid.Column="1" Content="GKX" />
+                                <TextBox PreviewKeyDown="GKX_vnos_PreviewKeyDown" x:Name="GKX_vnos" Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2"/>
+                            <Button Grid.Row="5" Grid.Column="5" Name="AtlasURL" Click="AtlasURL_Click">Atlas okolja</Button>
+
+                            <Label Grid.Row="6" Grid.Column="1" Content="GKY" />
+                                <TextBox x:Name="GKY_vnos" Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="2"/>
+
+                            <Label Grid.Row="8" Grid.Column="0" Content="Opredelitev stavbe" HorizontalAlignment="Left" Margin="51,0,0,0"/>
+                                <ComboBox x:Name="opredelitev_stavbe_combobox" Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="2">
+                                <ComboBoxItem x:Name="opredelitev_prazna" IsSelected="True" Visibility="Collapsed"></ComboBoxItem>
+                                <ComboBoxItem x:Name="nezahtevna" >Energetsko nezahtevna stavba</ComboBoxItem>
+                                <ComboBoxItem x:Name="majnZahtevna">Energetsko manj zahtevna stavba</ComboBoxItem>
+                                <ComboBoxItem x:Name="zahtevna">Energetsko zahtevna stavba</ComboBoxItem>
+                            </ComboBox>
+
+                            <Label Grid.Row="9" Grid.Column="0" Content="Vrsta gradnje" HorizontalAlignment="Left" Margin="80,0,0,0"/>
+                                <ComboBox x:Name="vrsta_gradnje_combobox" VerticalAlignment="Center" Grid.Row="9" Grid.Column="2" Grid.ColumnSpan="2">
+                                <ComboBoxItem x:Name="vrsta_prazna" IsSelected="True" Visibility="Collapsed"></ComboBoxItem>
+                                <ComboBoxItem x:Name="nova" >Nova</ComboBoxItem>
+                                <ComboBoxItem x:Name="rekonstruirana">Rekonstruirana</ComboBoxItem>
+                                <ComboBoxItem x:Name="prenovljena">Celovito energetsko prenovljena</ComboBoxItem>
+                            </ComboBox>
+
+                            <Label Grid.Row="10" Grid.Column="0" Content="Javna stavba" HorizontalAlignment="Left" Margin="84,0,0,0"/>
+                                <ComboBox x:Name="javna_stavba_combobox" Grid.Row="10" VerticalAlignment="Center" Grid.Column="2" Grid.ColumnSpan="2">
+                                    <ComboBoxItem x:Name="javna_prazna" IsSelected="True" Visibility="Collapsed"></ComboBoxItem>
+                                    <ComboBoxItem x:Name="javna_DA" >DA</ComboBoxItem>
+                                    <ComboBoxItem x:Name="javna_NE">NE</ComboBoxItem>
+                                </ComboBox>
+                            </Grid>
+                    </TabItem>
+                    <TabItem Header="Meterološki podatki projekta">
+                        <Grid Background="LightYellow">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition Width="120"/>
+                                <ColumnDefinition Width="120"/>
+                                <ColumnDefinition Width="120"/>
+                                
+                                <ColumnDefinition Width="20"/>
+                                <ColumnDefinition Width="200"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="25"/>
+                                <RowDefinition Height="25"/>
+                                <RowDefinition Height="25"/>
+                                <RowDefinition Height="25"/>
+
+                                <RowDefinition Height="25"/>
+                                <RowDefinition Height="25"/>
+                                <RowDefinition Height="25"/>
+                                <RowDefinition Height="25"/>
+
+
+                                <RowDefinition Height="25"/>
+                                <RowDefinition Height="25"/>
+                                <RowDefinition Height="25"/>
+                                <RowDefinition Height="25"/>
+
+                                <RowDefinition Height="25"/>
+                                <RowDefinition Height="25"/>
+                                <RowDefinition Height="25"/>
+                                <RowDefinition Height="25"/>
+
+                                <RowDefinition Height="25"/>
+                                <RowDefinition Height="25"/>
+                                <RowDefinition Height="25"/>
+                                <RowDefinition Height="25"/>
+                            </Grid.RowDefinitions>
+
+                            <Label Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0" Content="Podnebje" HorizontalAlignment="Right"/>
+                            <ComboBox VerticalAlignment="Center" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3">
+                                <ComboBoxItem x:Name="podnebje_alpsko" >Alpsko</ComboBoxItem>
+                                <ComboBoxItem x:Name="podnebje_celinsko">Celinsko</ComboBoxItem>
+                                <ComboBoxItem x:Name="podnebje_primorsko">Primorsko</ComboBoxItem>
+                            </ComboBox>
+
+                            <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Content="Povprečna letna" HorizontalAlignment="Right"/>
+                            <TextBox Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="3"/>
+
+                            <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Content="Projektna zimska" HorizontalAlignment="Right"/>
+                            <TextBox Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="3"/>
+
+                            <Label Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Content="Energija son. obsevanja" HorizontalAlignment="Right"/>
+                            <TextBox Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="3"/>
+                            <!--kWh/m²a  Energija sončnega obsevanja (kWh/m2)-->
+
+                            <Label Grid.Row="6" Grid.Column="0" Content="Mesec" HorizontalAlignment="Right"/>
+                            <Label Grid.Row="6" Grid.Column="1" Content="Temperatura (°C)" HorizontalAlignment="Center"/>
+                            <Label Grid.Row="6" Grid.Column="2" Content="Rel. vlažnost (%)" HorizontalAlignment="Center"/>
+                            <Label Grid.Row="6" Grid.Column="3" Content="Abs. vlažnost (g/kg)" HorizontalAlignment="Center"/>
+
+                            <Label Grid.Row="7" Grid.Column="0" Content="Januar" HorizontalAlignment="Right"/>
+                            <TextBox Grid.Row="7" Grid.Column="1"/>
+                            <TextBox Grid.Row="7" Grid.Column="2"/>
+                            <TextBox Grid.Row="7" Grid.Column="3"/>
+
+                            <Label Grid.Row="8" Grid.Column="0" Content="Februar" HorizontalAlignment="Right"/>
+                            <TextBox Grid.Row="8" Grid.Column="1"/>
+                            <TextBox Grid.Row="8" Grid.Column="2"/>
+                            <TextBox Grid.Row="8" Grid.Column="3"/>
+
+                            <Label Grid.Row="9" Grid.Column="0" Content="Marec" HorizontalAlignment="Right"/>
+                            <TextBox Grid.Row="9" Grid.Column="1"/>
+                            <TextBox Grid.Row="9" Grid.Column="2"/>
+                            <TextBox Grid.Row="9" Grid.Column="3"/>
+
+
+                            <Label Grid.Row="10" Grid.Column="0" Content="April" HorizontalAlignment="Right"/>
+                            <TextBox Grid.Row="10" Grid.Column="1"/>
+                            <TextBox Grid.Row="10" Grid.Column="2"/>
+                            <TextBox Grid.Row="10" Grid.Column="3"/>
+
+                            <Label Grid.Row="11" Grid.Column="0" Content="Maj" HorizontalAlignment="Right"/>
+                            <TextBox Grid.Row="11" Grid.Column="1"/>
+                            <TextBox Grid.Row="11" Grid.Column="2"/>
+                            <TextBox Grid.Row="11" Grid.Column="3"/>
+
+                            <Label Grid.Row="12" Grid.Column="0" Content="Junij" HorizontalAlignment="Right"/>
+                            <TextBox Grid.Row="12" Grid.Column="1"/>
+                            <TextBox Grid.Row="12" Grid.Column="2"/>
+                            <TextBox Grid.Row="12" Grid.Column="3"/>
+
+                            <Label Grid.Row="13" Grid.Column="0" Content="Julij" HorizontalAlignment="Right"/>
+                            <TextBox Grid.Row="13" Grid.Column="1"/>
+                            <TextBox Grid.Row="13" Grid.Column="2"/>
+                            <TextBox Grid.Row="13" Grid.Column="3"/>
+
+                            <Label Grid.Row="14" Grid.Column="0" Content="Avgust" HorizontalAlignment="Right"/>
+                            <TextBox Grid.Row="14" Grid.Column="1"/>
+                            <TextBox Grid.Row="14" Grid.Column="2"/>
+                            <TextBox Grid.Row="14" Grid.Column="3"/>
+
+                            <Label Grid.Row="15" Grid.Column="0" Content="September" HorizontalAlignment="Right"/>
+                            <TextBox Grid.Row="15" Grid.Column="1"/>
+                            <TextBox Grid.Row="15" Grid.Column="2"/>
+                            <TextBox Grid.Row="15" Grid.Column="3"/>
+
+                            <Label Grid.Row="16" Grid.Column="0" Content="Oktober" HorizontalAlignment="Right"/>
+                            <TextBox Grid.Row="16" Grid.Column="1"/>
+                            <TextBox Grid.Row="16" Grid.Column="2"/>
+                            <TextBox Grid.Row="16" Grid.Column="3"/>
+
+                            <Label Grid.Row="17" Grid.Column="0" Content="November" HorizontalAlignment="Right"/>
+                            <TextBox Grid.Row="17" Grid.Column="1"/>
+                            <TextBox Grid.Row="17" Grid.Column="2"/>
+                            <TextBox Grid.Row="17" Grid.Column="3"/>
+
+                            <Label Grid.Row="18" Grid.Column="0" Content="December" HorizontalAlignment="Right"/>
+                            <TextBox Grid.Row="18" Grid.Column="1"/>
+                            <TextBox Grid.Row="18" Grid.Column="2"/>
+                            <TextBox Grid.Row="18" Grid.Column="3"/>
+
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+                
+            </TabItem>
+            <TabItem Header="Cone" >
+                <ScrollViewer HorizontalScrollBarVisibility="Auto">
+                    <Grid Background="LightYellow">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="110"/>
+
+                            <ColumnDefinition Width="110"/>
+                            <ColumnDefinition Width="110"/>
+                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition Width="110"/>
+                            <ColumnDefinition Width="20"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="25"/>
+
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="25"/>
+
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="25"/>
+
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="25"/>
+
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="25"/>
+
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="25"/>
+
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="25"/>
+
+
+                            </Grid.RowDefinitions>
+
+                        <Label Grid.Row="0" Grid.Column="0" Content="Podatki o coni" FontWeight="Bold"/>
+
+                        <Label Grid.Row="2" Grid.Column="0" Content="Namembnost stavbe" />
+                        <ComboBox VerticalAlignment="Center" Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="3">
+                            <ComboBoxItem x:Name="namembnost_prazna" IsSelected="True" Visibility="Collapsed"></ComboBoxItem>
+                            <ComboBoxItem x:Name="enostanovanjska_stavba" >Enostanovanjska stavba</ComboBoxItem>
+                            <ComboBoxItem x:Name="vecstanovanjska_stavba">Večstanovanjska stavba</ComboBoxItem>
+                            <ComboBoxItem x:Name="posebne_druzine_stavba">Stanovanjske stavbe za posebne družbene skupine</ComboBoxItem>
+                            <ComboBoxItem x:Name="restavracija_stavba" >Gostinske stavbe: restavracije</ComboBoxItem>
+                            <ComboBoxItem x:Name="hoteli_stavba">Gostinske stavbe: hoteli</ComboBoxItem>
+                            <ComboBoxItem x:Name="poslovne_upravne_stavbe">Poslovne in upravne stavbe</ComboBoxItem>
+
+                            <ComboBoxItem x:Name="trgovska_stavba" >Trgovske stavbe in stavbe storitvene dejavnosti</ComboBoxItem>
+                            <ComboBoxItem x:Name="industrijska_stavba">Industrijske stavbe</ComboBoxItem>
+                            <ComboBoxItem x:Name="splosni_druzabni_pomen_stavba">Stavbe splošnega družbenega pomena</ComboBoxItem>
+                            <ComboBoxItem x:Name="koltura_zabava_stavba" >Stavbe za kulturo in razvedrilo</ComboBoxItem>
+                            <ComboBoxItem x:Name="muzeji_knjiznice_stavba">Muzeji, arhivi in knjižnice</ComboBoxItem>
+                            <ComboBoxItem x:Name="izobraževalne_znanstvenoraziskovalne_stavbe">Stavbe za izobraževanje in znanstvenoraziskovalno delo</ComboBoxItem>
+
+                            <ComboBoxItem x:Name="zdravstvena_stavba" >Stavbe za zdravstveno oskrbo</ComboBoxItem>
+                            <ComboBoxItem x:Name="sportne_stavba">Stavbe za šport</ComboBoxItem>
+                            <ComboBoxItem x:Name="brisi_cono_stavba">Brisi cono</ComboBoxItem>
+                        </ComboBox>
+
+                        <Label Grid.Row="3" Grid.Column="0" Content="Naziv cone" />
+                        <TextBox Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="3"/>
+
+                        <Label Grid.Row="4" Grid.Column="0" Content="Bruto ogrevana prostornina" />
+                        <Label Grid.Row="4" Grid.Column="1" Content="Ve" />
+                        <Label Grid.Row="4" Grid.Column="2" Content="m³" />
+                        <TextBox Grid.Row="4" Grid.Column="3"/>
+
+                        <Label Grid.Row="5" Grid.Column="0" Content="Neto ogrevana prostornina" />
+                        <Label Grid.Row="5" Grid.Column="1" Content="V" />
+                        <Label Grid.Row="5" Grid.Column="2" Content="m³" />
+                        <TextBox Grid.Row="5" Grid.Column="3"/>
+
+                        <Label Grid.Row="6" Grid.Column="0" Content="Kondicionirana površina cone" />
+                        <Label Grid.Row="6" Grid.Column="1" Content="Ause,zn" />
+                        <Label Grid.Row="6" Grid.Column="2" Content="m²" />
+                        <TextBox Grid.Row="6" Grid.Column="3"/>
+
+                        <Label Grid.Row="8" Grid.Column="3" Content="ogrevanje" />
+                        <Label Grid.Row="8" Grid.Column="4" Content="hlajenje" />
+
+                        <Label Grid.Row="9" Grid.Column="0" Content="Notranja operativna temperatura" />
+                        <Label Grid.Row="9" Grid.Column="1" Content="θop" />
+                        <Label Grid.Row="9" Grid.Column="2" Content="°C" />
+                        <TextBox Grid.Row="9" Grid.Column="3"/>
+                        <TextBox Grid.Row="9" Grid.Column="4"/>
+
+                        <Label Grid.Row="9" Grid.Column="6" Content="Tedenska uporaba stavbe" />
+                        <Label Grid.Row="9" Grid.Column="7" Content="tt" />
+                        <Label Grid.Row="9" Grid.Column="8" Content="d/teden" />
+                        <TextBox Grid.Row="9" Grid.Column="9"/>
+
+                        <Label Grid.Row="10" Grid.Column="0" Content="Notranji viri" />
+                        <Label Grid.Row="10" Grid.Column="1" Content="qs" />
+
+                        <Label Grid.Row="10" Grid.Column="6" Content="Dnevna uporaba stavbe" />
+                        <Label Grid.Row="10" Grid.Column="7" Content="td" />
+                        <Label Grid.Row="10" Grid.Column="2" Content="W/m2" />
+                        <TextBox Grid.Row="10" Grid.Column="3"/>
+                        <TextBox Grid.Row="10" Grid.Column="4"/>
+                        <Label Grid.Row="10" Grid.Column="8" Content="h/dan" />
+                        <TextBox Grid.Row="10" Grid.Column="9"/>
+
+                        <Label Grid.Row="11" Grid.Column="6" Content="Letno št. dni koriščenja" />
+                        <Label Grid.Row="11" Grid.Column="7" Content="da" />
+                        <Label Grid.Row="11" Grid.Column="8" Content="d/an" />
+                        <TextBox Grid.Row="11" Grid.Column="9"/>
+
+                        <Label Grid.Row="12" Grid.Column="6" Content="Faktor sočasne uporabe stavbe" />
+                        <Label Grid.Row="12" Grid.Column="7" Content="fu" />
+                        <Label Grid.Row="12" Grid.Column="8" Content="-" />
+                        <TextBox Grid.Row="12" Grid.Column="9"/>
+
+                            <Label Grid.Row="13" Grid.Column="0" Content="Način gradnje"/>
+                            <ComboBox Grid.Row="13" VerticalAlignment="Center" Grid.Column="3" Grid.ColumnSpan="3">
+                                <ComboBoxItem x:Name="zelo_lahke_konstrukcije" >Zelo lahke konstrukcije</ComboBoxItem>
+                                <ComboBoxItem x:Name="lahke_konstrukcije">Lahke konstrukcije</ComboBoxItem>
+                                <ComboBoxItem x:Name="sredneje_tezke_konstrukcije">Srednje težke konstrukcije</ComboBoxItem>
+                                <ComboBoxItem x:Name="tezke_konstrukcije">Težke konstrukcije</ComboBoxItem>
+                                <ComboBoxItem x:Name="zelo_tezke_konstrukcije">Zelo težke konstrukcije</ComboBoxItem>
+                            </ComboBox>
+
+                            <Label Grid.Row="14" Grid.Column="0" Content="Toplotna kapaciteta toplotne cone"/>
+                            <Label Grid.Row="14" Grid.Column="1" Content="Cm,eff"/>
+                            <Label Grid.Row="14" Grid.Column="2" Content="J/K"/>
+                            <TextBox Grid.Row="14" Grid.Column="3" Grid.ColumnSpan="2"/>
+                        
+                            <Label Grid.Row="16" Grid.Column="0" Content="Prezračevanje"/>
+                            <ComboBox Name="Prezracevanje" Grid.Row="16" VerticalAlignment="Center" Grid.Column="3" Grid.ColumnSpan="3" SelectionChanged="showMechanicOptions">
+                                <ComboBoxItem x:Name="naravno_prezracevanje" >Naravno - z odpiranjem oken</ComboBoxItem>
+                                <ComboBoxItem x:Name="mehansko_zrak_prezracevanje">Mehansko - z dovodom ali odvodom zraka</ComboBoxItem>
+                                <ComboBoxItem x:Name="mehansko_prezracevanje">Mehansko - z vračanjem toplote</ComboBoxItem>
+                            </ComboBox>
+
+                            <Label Grid.Row="17" Grid.Column="3" Content="Pozimi"/>
+                            <Label Grid.Row="17" Grid.Column="4" Content="Poleti"/>
+
+                            <Label x:Name="izmenjava_zraka_label" Grid.Row="18" Grid.Column="0" Content="Št. izmenjav zraka"/>
+                            <Label x:Name="izmenjava_zraka_n_label" Grid.Row="18" Grid.Column="1" Content="n"/>
+                            <Label x:Name="izmenjava_zraka_h1_label" Grid.Row="18" Grid.Column="2" Content="h-1"/>
+                            <TextBox x:Name="izmenjava_zraka_pozimi_vnos" Grid.Row="18" Grid.Column="3"/>
+                            <TextBox x:Name="izmenjava_zraka_poleti_vnos" Grid.Row="18" Grid.Column="4"/>
+
+                            <Label Grid.Row="19" Grid.Column="0" Content="Št. izmenjav pri 50 Pa"/>
+                            <Label Grid.Row="19" Grid.Column="1" Content="n50"/>
+                            <Label Grid.Row="19" Grid.Column="2" Content="h-1"/>
+                            <TextBox Grid.Row="19" Grid.Column="3"/>
+
+                            <Label x:Name="regulacija_label" Grid.Row="21" Grid.Column="0" Content="Vrsta regulacije" Visibility="Hidden"/>
+                            <ComboBox x:Name="regulacija_combobox" Grid.Row="21" VerticalAlignment="Center" Grid.Column="3" Grid.ColumnSpan="3" Visibility="Hidden">
+                                <ComboBoxItem x:Name="co2_st_ljudi_regulacija" >Senzor CO₂ ali števila ljudi</ComboBoxItem>
+                                <ComboBoxItem x:Name="prisotnosti_regulacija">Senzor prisotnosti</ComboBoxItem>
+                                <ComboBoxItem x:Name="drugo_regulacija">Drugi senzorji</ComboBoxItem>
+                                <ComboBoxItem x:Name="prazno_regulacija" Visibility="Hidden"></ComboBoxItem>
+                            </ComboBox>
+
+                            <Label x:Name="doveden_zrak_label" Grid.Row="22" Grid.Column="0" Content="Količina dovedenega zraka po projektu" Visibility="Hidden"/>
+                            <Label x:Name="doveden_zrak_V_label" Grid.Row="22" Grid.Column="1" Content="Vdov,proj" Visibility="Hidden"/>
+                            <Label x:Name="doveden_zrak_mh_label" Grid.Row="22" Grid.Column="2" Content="m³/h" Visibility="Hidden"/>
+                        <TextBox x:Name="doveden_zrak_vnos" Grid.Row="22" Grid.Column="3" Visibility="Hidden"/>
+
+                        <Label x:Name ="lega_label" Grid.Row="23" Grid.Column="0" Content="Lega" Visibility="Hidden"/>
+                        <ComboBox x:Name="lega_combobox" Grid.Row="23" VerticalAlignment="Center" Grid.Column="3" Grid.ColumnSpan="3" Visibility="Hidden">
+                            <ComboBoxItem x:Name="odprto_podezelje_lega" >Stavbe na odprtem podeželju, visoke stavbe v mestih</ComboBoxItem>
+                            <ComboBoxItem x:Name="podezelje_drevesa_lega">Stavbe na podež. z drevesi, obkrožene s stavbami, predmestja</ComboBoxItem>
+                            <ComboBoxItem x:Name="gozdne_lega">Stavbe v mestih povpr.višine, stavbe v gozdu</ComboBoxItem>
+                            <ComboBoxItem x:Name="prazno_lega" Visibility="Hidden"></ComboBoxItem>
+                        </ComboBox>
+
+                        <Label x:Name ="zavetrovanost_label" Grid.Row="24" Grid.Column="0" Content="Zavetrovanost" Visibility="Hidden"/>
+                        <ComboBox x:Name="zavetrovanost_combobox" Grid.Row="24" VerticalAlignment="Center" Grid.Column="3" Grid.ColumnSpan="3" Visibility="Hidden">
+                            <ComboBoxItem x:Name="ena_fasada_zavetrovanost" >Vetru izpostavljena ena fasada</ComboBoxItem>
+                            <ComboBoxItem x:Name="vec_fasad_zavetrovanost">Vetru izpostavljenih več fasad</ComboBoxItem>
+                            <ComboBoxItem x:Name="prazno_zavetrovnaost" Visibility="Hidden"></ComboBoxItem>
+                        </ComboBox>
+
+                        <Label x:Name ="vracanje_toplote_label" Grid.Row="25" Grid.Column="0" Content="Izkoristek vračanja toplote" Visibility="Hidden"/>
+                        <Label x:Name ="vracanje_toplote_n_label" Grid.Row="25" Grid.Column="1" Content="η" Visibility="Hidden"/>
+                        <Label x:Name ="vracanje_toplote_percent_label" Grid.Row="25" Grid.Column="2" Content="%" Visibility="Hidden"/>
+                        <TextBox x:Name ="vracanje_toplote_vnos" Grid.Row="25" Grid.Column="3" Visibility="Hidden"/>
+                        
+                        </Grid>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="Konsturkcije">
+                <TabControl>
+                        <TabItem Header="Zunanje">
+                            <Grid Background="LightYellow">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="10"/>
+                                    <ColumnDefinition Width="170"/>
+                                    <ColumnDefinition Width="90"/>
+                                    <ColumnDefinition Width="90"/>
+                                    <ColumnDefinition Width="90"/>
+
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition Width="50"/>
+                                    <ColumnDefinition Width="30"/>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition Width="30"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="25"/>
+                                </Grid.RowDefinitions>
+
+                                <Label Grid.Row="1" Grid.Column="1" Content="Tip konstrukcije" HorizontalAlignment="Right"/>
+                                <ComboBox Name="Konstrukcije" Grid.Row="1" VerticalAlignment="Center" Grid.Column="2" Grid.ColumnSpan="6"  SelectionChanged="showConstructionOptions">
+                                    <ComboBoxItem x:Name="zunanja_tip_konstrukcije" >Zunanja stena</ComboBoxItem> <!-- prezracevana -->
+                                    <ComboBoxItem x:Name="stena_med_stanovanji_tip_konstrukcije">Stene med stanovanji</ComboBoxItem> <!-- meji na cono -->
+                                    <ComboBoxItem x:Name="zunanja_stena_tip_konstrukcije"></ComboBoxItem> <!-- prezracevana --> 
+                                    <ComboBoxItem x:Name="tla_neogrevan_prostor_tip_konstrukcije">Tla nad neogrevanim prostorom</ComboBoxItem>
+                                    <ComboBoxItem x:Name="tla_zunanji_zrak_tip_konstrukcije">Tla nad zunanjim zrakom</ComboBoxItem>
+                                    <ComboBoxItem x:Name="strop_proti_neogrevanjem_prostoru_tip_konstrukcije">Strop proti neogrevanemu prostoru</ComboBoxItem>
+                                    <ComboBoxItem x:Name="stene_proti_stopniscem_in_hodnikom_tip_konstrukcije">Stene proti stopniščem in hodnikom</ComboBoxItem> <!-- prezracevana -->
+                                    <ComboBoxItem x:Name="tla_nad_neogrevanim_prostorom_pri_talnem_ogrevanju_tip_konstrukcije">Tla nad neogrevanim prostorom pri talnem ogrevanju</ComboBoxItem>
+                                </ComboBox>
+
+                                <Label Grid.Row="2" Grid.Column="1" Content="Naziv" HorizontalAlignment="Right"/>
+                                <TextBox Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="6"/>
+
+                                <Label Grid.Row="3" Grid.Column="1" Content="Površina" HorizontalAlignment="Right"/>
+                                <TextBox Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="1"/>
+                                <Label Grid.Row="3" Grid.Column="3" Content="m"/>
+
+                                <Label Grid.Row="3" Grid.Column="4" Content="Temp. in vlažnost notranjega zraka" Grid.ColumnSpan="3" HorizontalAlignment="Right"/>
+                                <Button Grid.Row="3" Grid.Column="7" MaxWidth="22"/>
+
+                                <Label x:Name="prezracevanje_label" Grid.Row="4" Grid.Column="1" Content="Prezračevanje" HorizontalAlignment="Right"/>
+                                <RadioButton x:Name="prezracevanje_radiobtnDA" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Da" Checked="RadioButton_prezracevanje"/>
+                                <RadioButton x:Name="prezracevanje_radiobtnNE" Grid.Row="4" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Ne" Checked="RadioButton_prezracevanje"/>
+
+                                <Label x:Name="smer_label" Grid.Row="4" Grid.Column="4" Content="Smer" HorizontalAlignment="Right"/>
+                                <ComboBox x:Name="smer_combobox" Grid.Row="4" VerticalAlignment="Center" Grid.Column="5">
+                                    <ComboBoxItem x:Name="S_smer" >S</ComboBoxItem>
+                                    <ComboBoxItem x:Name="SV_smer" >SV</ComboBoxItem>
+                                    <ComboBoxItem x:Name="V_smer" >V</ComboBoxItem>
+                                    <ComboBoxItem x:Name="JV_smer" >JV</ComboBoxItem>
+                                    <ComboBoxItem x:Name="J_smer" >J</ComboBoxItem>
+                                    <ComboBoxItem x:Name="JZ_smer" >JZ</ComboBoxItem>
+                                    <ComboBoxItem x:Name="Z_smer" >Z</ComboBoxItem> 
+                                    <ComboBoxItem x:Name="SZ_smer" >SZ</ComboBoxItem>
+                                </ComboBox>
+
+                                <Label x:Name="meji_na_cono_label" Grid.Row="4" Grid.Column="1" Content="Meji na cono" HorizontalAlignment="Right" Visibility="Hidden"/>
+                                <ComboBox x:Name="meji_na_cono_combobox" Grid.Row="4" VerticalAlignment="Center" Grid.Column="2" Grid.ColumnSpan="5" Visibility="Hidden">
+                                    
+                                </ComboBox>
+
+                                <Label Grid.Row="6" Grid.Column="1" Content="Material v skupini" HorizontalAlignment="Right"/>
+                                <ComboBox Grid.Row="6" VerticalAlignment="Center" Grid.Column="2" Grid.ColumnSpan="6">
+                                    <ComboBoxItem x:Name="zidovi_material_skupine" >Zidovi</ComboBoxItem>
+                                    <ComboBoxItem x:Name="malte_material_skupine" >Malte</ComboBoxItem>
+                                    <ComboBoxItem x:Name="kamen_material_skupine" >naravni kamen in zemlja</ComboBoxItem>
+                                    <ComboBoxItem x:Name="ponila_material_skupine" >Polnila</ComboBoxItem>
+                                    <ComboBoxItem x:Name="betoni_material_skupine" >Betoni</ComboBoxItem>
+                                    <ComboBoxItem x:Name="obloge_material_skupine" >Obloge</ComboBoxItem>
+                                    <ComboBoxItem x:Name="hidroizolacije_material_skupine" >Hidroizolacije, asfalt, bitumen</ComboBoxItem>
+                                    <ComboBoxItem x:Name="talne_obloge_material_skupine" >Talne obloge</ComboBoxItem>
+                                    <ComboBoxItem x:Name="pokrovni_material_skupine" >Strešni pokrovni materiali in trakovi</ComboBoxItem>
+                                    <ComboBoxItem x:Name="kovine_material_skupine" >Kovine</ComboBoxItem>
+                                    <ComboBoxItem x:Name="izolatorji_material_skupine" >Toplotni izolatorji</ComboBoxItem>
+                                    <ComboBoxItem x:Name="zracna_plast_material_skupine" >Zračna plast</ComboBoxItem>
+                                    <ComboBoxItem x:Name="estrih_material_skupine" >Estrih z registrom ploskovnega ogrevanja</ComboBoxItem>
+                                </ComboBox>
+
+                                <Label Grid.Row="7" Grid.Column="1" Content="Material" HorizontalAlignment="Right"/>
+                                <ComboBox Grid.Row="7" VerticalAlignment="Center" Grid.Column="2" Grid.ColumnSpan="6">
+                                    <ComboBoxItem x:Name="nov_material" Content="[dodaj nov material]"/>
+                                </ComboBox>
+
+                                <Label Grid.Row="8" Grid.Column="1" Content="Debelina sloja" HorizontalAlignment="Right"/>
+                                <TextBox Grid.Row="8" Grid.Column="2"/>
+                                <Label Grid.Row="8" Grid.Column="3" Content="cm"/>
+
+                                <Label Grid.Row="10" Grid.Column="2" Content="U= 0.000 W/m2K" FontWeight="Bold" Grid.ColumnSpan="2"/>
+
+                                <Label Grid.Row="10" Grid.Column="4" Content="Umax = 0.000 W/m2K" FontWeight="Bold" Grid.ColumnSpan="2"/>
+
+                                <Label Grid.Row="12" Grid.Column="1" Grid.ColumnSpan="2" Content="Materiali (prvi sloj je znotraj)" Background="LightGray" BorderThickness="1"/>
+                                <Label Grid.Row="12" Grid.Column="3" Content="Debelina (cm)" Background="LightGray" BorderThickness="1"/>
+                                <Label Grid.Row="12" Grid.Column="4" Content="λ (W/mK)" Background="LightGray" BorderThickness="1"/>
+                                <Label Grid.Row="12" Grid.Column="5" Content="μ" Background="LightGray" BorderThickness="1"/>
+                                <Label Grid.Row="12" Grid.Column="6" Content="ρ (kg/m3)" Grid.ColumnSpan="2" Background="LightGray" BorderThickness="1"/>
+                                <Label Grid.Row="12" Grid.Column="8" Content="sd (m)" Background="LightGray" BorderThickness="1"/>
+                                
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="Streha">
+                            <Grid Background="LightYellow">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="10"/>
+                                    <ColumnDefinition Width="170"/>
+                                    <ColumnDefinition Width="90"/>
+                                    <ColumnDefinition Width="90"/>
+                                    <ColumnDefinition Width="90"/>
+
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition Width="50"/>
+                                    <ColumnDefinition Width="30"/>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition Width="30"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="25"/>
+                                </Grid.RowDefinitions>
+
+                                <Label Grid.Row="1" Grid.Column="1" Content="Tip konstrukcije" HorizontalAlignment="Right"/>
+                                <ComboBox Name="Konstrukcije_streha" Grid.Row="1" VerticalAlignment="Center" Grid.Column="2" Grid.ColumnSpan="6"  SelectionChanged="showConstructionOptions">
+                                    <ComboBoxItem x:Name="posevna_streha_konstrukcije" >Poševna streha nad ogrevanim podstrešjem</ComboBoxItem>
+                                    <ComboBoxItem x:Name="ravna_streha_konstrukcije">Ravna streha</ComboBoxItem>
+                                </ComboBox>
+
+                                <Label Grid.Row="2" Grid.Column="1" Content="Naziv" HorizontalAlignment="Right"/>
+                                <TextBox Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="6"/>
+
+                                <Label Grid.Row="3" Grid.Column="1" Content="Površina" HorizontalAlignment="Right"/>
+                                <TextBox Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="1"/>
+                                <Label Grid.Row="3" Grid.Column="3" Content="m"/>
+
+                                <Label Grid.Row="3" Grid.Column="4" Content="Temp. in vlažnost notranjega zraka" Grid.ColumnSpan="3" HorizontalAlignment="Right"/>
+                                <Button Grid.Row="3" Grid.Column="7" MaxWidth="22"/>
+
+                                <Label x:Name="prezracevanje_streha_label" Grid.Row="4" Grid.Column="1" Content="Prezračevanje" HorizontalAlignment="Right"/>
+                                <RadioButton x:Name="prezracevanje_streha_radiobtnDA" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Da" Checked="RadioButton_prezracevanje"/>
+                                <RadioButton x:Name="prezracevanje_streha_radiobtnNE" Grid.Row="4" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Ne" Checked="RadioButton_prezracevanje"/>
+
+
+                                <Label Grid.Row="6" Grid.Column="1" Content="Material v skupini" HorizontalAlignment="Right"/>
+                                <ComboBox Grid.Row="6" VerticalAlignment="Center" Grid.Column="2" Grid.ColumnSpan="6">
+                                    <ComboBoxItem x:Name="zidovi_material_skupine_streha" >Zidovi</ComboBoxItem>
+                                    <ComboBoxItem x:Name="malte_material_skupine_streha" >Malte</ComboBoxItem>
+                                    <ComboBoxItem x:Name="kamen_material_skupine_streha" >naravni kamen in zemlja</ComboBoxItem>
+                                    <ComboBoxItem x:Name="ponila_material_skupine_streha" >Polnila</ComboBoxItem>
+                                    <ComboBoxItem x:Name="betoni_material_skupine_streha" >Betoni</ComboBoxItem>
+                                    <ComboBoxItem x:Name="obloge_material_skupine_streha" >Obloge</ComboBoxItem>
+                                    <ComboBoxItem x:Name="hidroizolacije_material_skupine_streha" >Hidroizolacije, asfalt, bitumen</ComboBoxItem>
+                                    <ComboBoxItem x:Name="talne_obloge_material_skupine_streha" >Talne obloge</ComboBoxItem>
+                                    <ComboBoxItem x:Name="pokrovni_material_skupine_streha" >Strešni pokrovni materiali in trakovi</ComboBoxItem>
+                                    <ComboBoxItem x:Name="kovine_material_skupine_streha" >Kovine</ComboBoxItem>
+                                    <ComboBoxItem x:Name="izolatorji_material_skupine_streha" >Toplotni izolatorji</ComboBoxItem>
+                                    <ComboBoxItem x:Name="zracna_plast_material_skupine_streha" >Zračna plast</ComboBoxItem>
+                                    <ComboBoxItem x:Name="estrih_material_skupine_streha" >Estrih z registrom ploskovnega ogrevanja</ComboBoxItem>
+                                </ComboBox>
+
+                                <Label Grid.Row="7" Grid.Column="1" Content="Material" HorizontalAlignment="Right"/>
+                                <ComboBox Grid.Row="7" VerticalAlignment="Center" Grid.Column="2" Grid.ColumnSpan="6">
+                                    <ComboBoxItem x:Name="nov_material_streha" Content="[dodaj nov material]"/>
+                                </ComboBox>
+
+                                <Label Grid.Row="8" Grid.Column="1" Content="Debelina sloja" HorizontalAlignment="Right"/>
+                                <TextBox Grid.Row="8" Grid.Column="2"/>
+                                <Label Grid.Row="8" Grid.Column="3" Content="cm"/>
+
+                                <Label Grid.Row="10" Grid.Column="2" Content="U= 0.000 W/m2K" FontWeight="Bold" Grid.ColumnSpan="2"/>
+
+                                <Label Grid.Row="10" Grid.Column="4" Content="Umax = 0.000 W/m2K" FontWeight="Bold" Grid.ColumnSpan="2"/>
+
+                                <Label Grid.Row="12" Grid.Column="1" Grid.ColumnSpan="2" Content="Materiali (prvi sloj je znotraj)" Background="LightGray" BorderThickness="1"/>
+                                <Label Grid.Row="12" Grid.Column="3" Content="Debelina (cm)" Background="LightGray" BorderThickness="1"/>
+                                <Label Grid.Row="12" Grid.Column="4" Content="λ (W/mK)" Background="LightGray" BorderThickness="1"/>
+                                <Label Grid.Row="12" Grid.Column="5" Content="μ" Background="LightGray" BorderThickness="1"/>
+                                <Label Grid.Row="12" Grid.Column="6" Content="ρ (kg/m3)" Grid.ColumnSpan="2" Background="LightGray" BorderThickness="1"/>
+                                <Label Grid.Row="12" Grid.Column="8" Content="sd (m)" Background="LightGray" BorderThickness="1"/>
+
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="Tla">
+                            <Grid Background="LightYellow">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="10"/>
+                                    <ColumnDefinition Width="170"/>
+                                    <ColumnDefinition Width="90"/>
+                                    <ColumnDefinition Width="90"/>
+                                    <ColumnDefinition Width="90"/>
+
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition Width="70"/>
+                                    <ColumnDefinition Width="40"/>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition Width="30"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="25"/>
+                                </Grid.RowDefinitions>
+
+                                <Label Grid.Row="1" Grid.Column="1" Content="Tip konstrukcije" HorizontalAlignment="Right"/>
+                                <ComboBox Name="Konstrukcije_tla" Grid.Row="1" VerticalAlignment="Center" Grid.Column="2" Grid.ColumnSpan="6"  SelectionChanged="showConstructionOptions">
+                                    <ComboBoxItem x:Name="tla_na_terenu" >Tla na terenu</ComboBoxItem>
+                                    <ComboBoxItem x:Name="neizolirana_tla_na_terenu">Neizolirana tla na terenu</ComboBoxItem>
+                                    <ComboBoxItem x:Name="delno_izolirana_tla_na_terenu" >Delno izolirana tla na terenu</ComboBoxItem>
+
+                                    <ComboBoxItem x:Name="tla_na_terenu_izolirani_temelji">Tla na terenu z izoliranimi temelji</ComboBoxItem>
+                                    <ComboBoxItem x:Name="tlav_vkopani_kleti" >Tla v vkopani kleti</ComboBoxItem>
+                                    <ComboBoxItem x:Name="strop_proti_terenu">Strop proti terenu</ComboBoxItem>
+
+                                    <ComboBoxItem x:Name="stene_vkopane_kleti" >Stene vkopane kleti</ComboBoxItem>
+                                    <ComboBoxItem x:Name="tla_na_terenu_talno_ogrevanje">Tla na terenu s talnim ogrevanjem</ComboBoxItem> <!--izpisi opozorilo-->
+                                    <ComboBoxItem x:Name="tlav_vkopani_kleti_talno_ogrevanje" >Tla v vkopani kleti s talnim ogrevanjem</ComboBoxItem> <!--izpisi opozorilo-->
+                                </ComboBox>
+
+                                <Label Grid.Row="2" Grid.Column="1" Content="Naziv" HorizontalAlignment="Right"/>
+                                <TextBox Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="6"/>
+
+                                <Label Grid.Row="3" Grid.Column="1" Content="Površina tal" HorizontalAlignment="Right"/>
+                                <!--Površina stene >> ko je izbrana opcija Stene vkopane kleti-->
+                                <TextBox Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="1"/>
+                                <Label Grid.Row="3" Grid.Column="3" Content="m"/>
+
+                                <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="4" Margin="38,0,0,0" Visibility="Hidden">
+                                    <Label Content="Debelina izolacije"/>
+                                    <TextBox Margin="10,0,0,0" Width="70"/>
+                                    <Label Content="cm"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="4" Margin="35,0,0,0" Visibility="Hidden">
+                                    <Label Content="Tla v vkopani kleti"/>
+                                    <TextBox Margin="10,0,0,0" Width="110"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="4" Margin="27,0,0,0" Visibility="Hidden">
+                                    <Label Content="Temp. greln. medija"/>
+                                    <TextBox Margin="10,0,0,0" Width="70"/>
+                                    <Label Content="°C"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" Margin="88,0,0,0" Visibility="Visible">
+                                    <Label Content="Debelina zidu"/>
+                                    <TextBox Width="90"/>
+                                    <Label Content="cm"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="4" Grid.ColumnSpan="4" Margin="55,0,0,0" Visibility="Hidden">
+                                    <Label Content="Širina izolacije"/>
+                                    <TextBox Margin="10,0,0,0" Width="70"/>
+                                    <Label Content="cm"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="4" Grid.ColumnSpan="4" Margin="64,0,0,0" Visibility="Hidden">
+                                    <Label Content="Globina kleti"/>
+                                    <TextBox Margin="10,0,0,0" Width="70"/>
+                                    <Label Content="cm"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3" Margin="125,0,0,0" Visibility="Visible">
+                                    <Label Content="Obseg"/>
+                                    <TextBox Width="90"/>
+                                    <Label Content="m"/>
+                                </StackPanel>
+                                
+                                <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="4" Grid.ColumnSpan="4" Margin="25,0,0,0" Visibility="Hidden">
+                                    <Label Content="Prevodnost izolacije"/>
+                                    <TextBox Margin="10,0,0,0" Width="70"/>
+                                    <Label Content="W/m"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3" Margin="84,0,0,0" Visibility="Visible">
+                                    <Label Content="Prevodnost tal"/>
+                                    <TextBox Width="90"/>
+                                    <Label Content="W/m"/>
+                                </StackPanel>
+
+                                <Label Grid.Row="8" Grid.Column="1" Content="Material v skupini" HorizontalAlignment="Right"/>
+                                <ComboBox Grid.Row="8" VerticalAlignment="Center" Grid.Column="2" Grid.ColumnSpan="6">
+                                    <ComboBoxItem x:Name="zidovi_material_skupine_tla" >Zidovi</ComboBoxItem>
+                                    <ComboBoxItem x:Name="malte_material_skupine_tla" >Malte</ComboBoxItem>
+                                    <ComboBoxItem x:Name="kamen_material_skupine_tla" >naravni kamen in zemlja</ComboBoxItem>
+                                    <ComboBoxItem x:Name="ponila_material_skupine_tla" >Polnila</ComboBoxItem>
+                                    <ComboBoxItem x:Name="betoni_material_skupine_tla" >Betoni</ComboBoxItem>
+                                    <ComboBoxItem x:Name="obloge_material_skupine_tla" >Obloge</ComboBoxItem>
+                                    <ComboBoxItem x:Name="hidroizolacije_material_skupine_tla" >Hidroizolacije, asfalt, bitumen</ComboBoxItem>
+                                    <ComboBoxItem x:Name="talne_obloge_material_skupine_tla" >Talne obloge</ComboBoxItem>
+                                    <ComboBoxItem x:Name="pokrovni_material_skupine_tla" >Strešni pokrovni materiali in trakovi</ComboBoxItem>
+                                    <ComboBoxItem x:Name="kovine_material_skupine_tla" >Kovine</ComboBoxItem>
+                                    <ComboBoxItem x:Name="izolatorji_material_skupine_tla" >Toplotni izolatorji</ComboBoxItem>
+                                    <ComboBoxItem x:Name="zracna_plast_material_skupine_tla" >Zračna plast</ComboBoxItem>
+                                    <ComboBoxItem x:Name="estrih_material_skupine_tla" >Estrih z registrom ploskovnega ogrevanja</ComboBoxItem>
+                                </ComboBox>
+
+                                <Label Grid.Row="9" Grid.Column="1" Content="Material" HorizontalAlignment="Right"/>
+                                <ComboBox Grid.Row="9" VerticalAlignment="Center" Grid.Column="2" Grid.ColumnSpan="6">
+                                    <ComboBoxItem x:Name="nov_material_tla" Content="&lt;dodaj nov material>"/>
+                                </ComboBox>
+
+                                <Label Grid.Row="10" Grid.Column="1" Content="Debelina sloja" HorizontalAlignment="Right"/>
+                                <TextBox Grid.Row="10" Grid.Column="2"/>
+                                <Label Grid.Row="10" Grid.Column="3" Content="cm"/>
+
+                                <Label Grid.Row="12" Grid.Column="2" Content="U= 0.000 W/m2K" FontWeight="Bold" Grid.ColumnSpan="2"/>
+
+                                <Label Grid.Row="12" Grid.Column="4" Content="Umax = 0.000 W/m2K" FontWeight="Bold" Grid.ColumnSpan="2"/>
+
+                                <Label Grid.Row="14" Grid.Column="1" Grid.ColumnSpan="2" Content="Materiali (prvi sloj je znotraj)" Background="LightGray" BorderThickness="1"/>
+                                <Label Grid.Row="14" Grid.Column="3" Content="Debelina (cm)" Background="LightGray" BorderThickness="1"/>
+                                <Label Grid.Row="14" Grid.Column="4" Content="λ (W/mK)" Background="LightGray" BorderThickness="1"/>
+                                <Label Grid.Row="14" Grid.Column="5" Content="μ" Background="LightGray" BorderThickness="1"/>
+                                <Label Grid.Row="14" Grid.Column="6" Content="ρ (kg/m3)" Grid.ColumnSpan="2" Background="LightGray" BorderThickness="1"/>
+                                <Label Grid.Row="14" Grid.Column="8" Content="sd (m)" Background="LightGray" BorderThickness="1"/>
+
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="Okna vrata">
+                            <Grid Background="LightYellow">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="10"/>
+                                    <ColumnDefinition Width="170"/>
+                                    <ColumnDefinition Width="90"/>
+                                    <ColumnDefinition Width="90"/>
+                                    <ColumnDefinition Width="90"/>
+
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition Width="70"/>
+                                    <ColumnDefinition Width="40"/>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition Width="30"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="25"/>
+                                </Grid.RowDefinitions>
+
+                                <Label Grid.Row="1" Grid.Column="1" Content="Naziv" HorizontalAlignment="Right"/>
+                                <TextBox Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="6"/>
+
+                                <!-- TODO -->
+                                <Label Grid.Row="2" Grid.Column="1" Content="Tip" HorizontalAlignment="Right"/>
+                                <ComboBox Grid.Row="2" VerticalAlignment="Center" Grid.Column="2" Grid.ColumnSpan="6">
+                                    <ComboBoxItem x:Name="okna_vrata_tip_dodaj" Content="&lt;Dodaj tip okna ali vrat>"></ComboBoxItem>
+                                </ComboBox>
+
+                                <Label Grid.Row="3" Grid.Column="1" Content="Površina" HorizontalAlignment="Right"/>
+                                <TextBox Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="1"/>
+                                <Label Grid.Row="3" Grid.Column="3" Content="m2"/>
+
+                                <Label Grid.Row="4" Grid.Column="1" Content="Delež zasteklitve" HorizontalAlignment="Right"/>
+                                <TextBox Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="1"/>
+
+                                <Label Grid.Row="5" Grid.Column="1" Content="Smer" HorizontalAlignment="Right"/>
+                                <ComboBox x:Name="smer_oknavrata_combobox" Grid.Row="5" VerticalAlignment="Center" Grid.Column="2">
+                                    <ComboBoxItem x:Name="S_oknavrata_smer" >S</ComboBoxItem>
+                                    <ComboBoxItem x:Name="SV_oknavrata_smer" >SV</ComboBoxItem>
+                                    <ComboBoxItem x:Name="V_oknavrata_smer" >V</ComboBoxItem>
+                                    <ComboBoxItem x:Name="JV_oknavrata_smer" >JV</ComboBoxItem>
+                                    <ComboBoxItem x:Name="J_oknavrata_smer" >J</ComboBoxItem>
+                                    <ComboBoxItem x:Name="JZ_oknavrata_smer" >JZ</ComboBoxItem>
+                                    <ComboBoxItem x:Name="Z_oknavrata_smer" >Z</ComboBoxItem>
+                                    <ComboBoxItem x:Name="SZ_oknavrata_smer" >SZ</ComboBoxItem>
+                                </ComboBox>
+
+                                <Label Grid.Row="6" Grid.Column="1" Content="Naklon" HorizontalAlignment="Right"/>
+                                <ComboBox x:Name="naklon_oknavrata_combobox" Grid.Row="6" VerticalAlignment="Center" Grid.Column="2">
+                                    <ComboBoxItem x:Name="naklon_oknavrata_nic" >0</ComboBoxItem>
+                                    <ComboBoxItem x:Name="naklon_oknavrata_petnajst" >15</ComboBoxItem>
+                                    <ComboBoxItem x:Name="naklon_oknavrata_trideset" >30</ComboBoxItem>
+                                    <ComboBoxItem x:Name="naklon_oknavrata_petinstirideset" >45</ComboBoxItem>
+                                    <ComboBoxItem x:Name="naklon_oknavrata_sestdeset" >60</ComboBoxItem>
+                                    <ComboBoxItem x:Name="naklon_oknavrata_petinsedemdeset" >75</ComboBoxItem>
+                                    <ComboBoxItem x:Name="naklon_oknavrata_devedeset" >90</ComboBoxItem>
+                                </ComboBox>
+
+                                <Label Grid.Row="7" Grid.Column="1" Content="Senčenje z objekti" HorizontalAlignment="Right"/>
+                                
+                                <Image Source="OknaVrata/a.png" Grid.Column="2" Grid.Row="7" Grid.RowSpan="2" MaxWidth="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Grid}}"
+                                                                MaxHeight="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=Grid}}"/>
+                                <Image Source="OknaVrata/b.png" Grid.Column="3" Grid.Row="7" Grid.RowSpan="2" MaxWidth="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Grid}}"
+                                                                MaxHeight="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=Grid}}"/>
+                                <Image Source="OknaVrata/c.png" Grid.Column="4" Grid.Row="7" Grid.RowSpan="2" MaxWidth="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Grid}}"
+                                                                MaxHeight="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=Grid}}"/>
+
+                                <ComboBox x:Name="sencenje_a_combobox" Grid.Row="9" VerticalAlignment="Center" Grid.Column="2">
+                                    <ComboBoxItem x:Name="sencenje_a_nic" >0</ComboBoxItem>
+                                    <ComboBoxItem x:Name="sencenje_a_deset" >10</ComboBoxItem>
+                                    <ComboBoxItem x:Name="sencenje_a_dvajset" >20</ComboBoxItem>
+                                    <ComboBoxItem x:Name="sencenje_a_trideset" >30</ComboBoxItem>
+                                    <ComboBoxItem x:Name="sencenje_a_strirideset" >40</ComboBoxItem>
+                                </ComboBox>
+
+                                <ComboBox x:Name="sencenje_b_combobox" Grid.Row="9" VerticalAlignment="Center" Grid.Column="3">
+                                    <ComboBoxItem x:Name="sencenje_b_nic" >0</ComboBoxItem>
+                                    <ComboBoxItem x:Name="sencenje_b_petnajst" >15</ComboBoxItem>
+                                    <ComboBoxItem x:Name="sencenje_b_trideset" >30</ComboBoxItem>
+                                    <ComboBoxItem x:Name="sencenje_b_petinstirideset" >45</ComboBoxItem>
+                                    <ComboBoxItem x:Name="sencenje_b_sestdeset" >60</ComboBoxItem>
+                                </ComboBox>
+
+                                <ComboBox x:Name="sencenje_c_combobox" Grid.Row="9" VerticalAlignment="Center" Grid.Column="4">
+                                    <ComboBoxItem x:Name="sencenje_c_nic" >0</ComboBoxItem>
+                                    <ComboBoxItem x:Name="sencenje_c_petnajst" >15</ComboBoxItem>
+                                    <ComboBoxItem x:Name="sencenje_c_trideset" >30</ComboBoxItem>
+                                    <ComboBoxItem x:Name="sencenje_c_petinstirideset" >45</ComboBoxItem>
+                                    <ComboBoxItem x:Name="sencenje_c_sestdeset" >60</ComboBoxItem>
+                                </ComboBox>
+
+                                <Label Grid.Row="10" Grid.Column="1" Content="Senšila na zunanji strani" HorizontalAlignment="Right"/>
+                                <ComboBox x:Name="senciala_zunaj_combobox" Grid.Row="10" VerticalAlignment="Center" Grid.Column="2" Grid.ColumnSpan="3">
+                                
+                                </ComboBox>
+
+                                <Label Grid.Row="11" Grid.Column="1" Content="Senšila na notranji strani" HorizontalAlignment="Right"/>
+                                <ComboBox x:Name="senciala_notranji_combobox" Grid.Row="11" VerticalAlignment="Center" Grid.Column="2" Grid.ColumnSpan="3">
+
+                                </ComboBox>
+
+                                <Label Grid.Row="12" Grid.Column="1" Content="Senšila spuščena" HorizontalAlignment="Right"/>
+                                <ComboBox x:Name="senciala_spuscena_combobox" Grid.Row="12" VerticalAlignment="Center" Grid.Column="2" Grid.ColumnSpan="3">
+                                    <ComboBoxItem x:Name="senciala_spuscena_poleti" >Poleti</ComboBoxItem>
+                                    <ComboBoxItem x:Name="senciala_spuscena_nikoli" >Nikoli</ComboBoxItem>
+                                    <ComboBoxItem x:Name="senciala_spuscena_skozi" >Senčila in zavese stalno</ComboBoxItem>
+                                </ComboBox>
+
+                                <Label Grid.Row="13" Grid.Column="1" Content="Toplotna prehodnost okna" HorizontalAlignment="Right"/>
+                                <TextBox Grid.Row="13" Grid.Column="2" Grid.ColumnSpan="1"/>
+                                <Label Grid.Row="13" Grid.Column="3" Content="W/m2K"/>
+
+                                <Label Grid.Row="14" Grid.Column="1" Content="Energijska prehodnost okna" HorizontalAlignment="Right"/>
+                                <TextBox Grid.Row="14" Grid.Column="2" Grid.ColumnSpan="1"/>
+
+                                <Label Grid.Row="15" Grid.Column="1" Content="Faktor senčenja (Fs)" HorizontalAlignment="Right"/>
+                                <TextBox Grid.Row="15" Grid.Column="2" Grid.ColumnSpan="1"/>
+                                
+                                <Label Grid.Row="16" Grid.Column="1" Content="Zaščita pred soncem" HorizontalAlignment="Right"/>
+                                <TextBox Grid.Row="16" Grid.Column="2" Grid.ColumnSpan="1"/>
+
+                                <Label Grid.Row="17" Grid.Column="1" Content="(g,Fs,Fo)" HorizontalAlignment="Right"/>
+
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="Toplotni mostovi">
+                            <Grid Background="LightYellow">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="70"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="30"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+
+                                    <RowDefinition Height="100"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="75"/>
+                                    <RowDefinition Height="25"/>
+                                </Grid.RowDefinitions>
+
+                                <RadioButton x:Name="linijski_mostovi_toplotna_prevodnost_vec_kot_001" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Content="Linijski toplotni mostovi s toplotno prevodnostjo 0.01"/>
+                                <RadioButton x:Name="linijski_mostovi_ovoj_stavbe_006" Grid.Row="2" Grid.Column="1"  VerticalAlignment="Center" Content="Povečanje toplotne prevodnosti ovoja stavbe za 0.06 W/m2K"/>
+                                <RadioButton x:Name="linijski_mostovi_dolocitev" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Content="Določitev toplotnih mostov" />
+                                <!--Checked="RadioButton_linijski_mostovi"-->
+
+                                <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.ColumnSpan="2" Margin="25,0,0,0" Visibility="Hidden">
+                                    <Label Content="Naziv"/>
+                                    <TextBox Margin="22,0,0,0" Width="340"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Grid.Row="6" Grid.ColumnSpan="2" Margin="38,0,0,0" Visibility="Hidden">
+                                    <Label Content="Tip"/>
+                                    <ComboBox Margin="22,0,0,0" Width="340">
+                                        <ComboBoxItem x:Name="toplotni_most_balkonska_plosca" >Balkonska plošča</ComboBoxItem>
+                                        <ComboBoxItem x:Name="toplotni_most_steber_v_zidu" >Steber v zidu</ComboBoxItem>
+                                        <ComboBoxItem x:Name="toplotni_most_stik_zidu_etazne_plosce" >Stik zidu in etažne plošče</ComboBoxItem>
+                                        <ComboBoxItem x:Name="toplotni_most_stik_zidu_predne_stene" >Stik zidu in predelne stene</ComboBoxItem>
+                                        <ComboBoxItem x:Name="toplotni_most_stik_zidu_stavbnega_pohistva" >Stik zidu in stavbnega pohištva</ComboBoxItem>
+                                        <ComboBoxItem x:Name="toplotni_most_stik_zidu_stresne_konstrukcije" >Stik zidu in strešne konstrukcije</ComboBoxItem>
+                                        <ComboBoxItem x:Name="toplotni_most_stik_tal_na_terenu" >Tla na terenu</ComboBoxItem>
+                                        <ComboBoxItem x:Name="toplotni_most_vogal" >Vogal</ComboBoxItem>
+                                        <ComboBoxItem x:Name="toplotni_most__znan_linijski_vogal" >Znan linijski toplotni most</ComboBoxItem>
+                                        <ComboBoxItem x:Name="toplotni_most_znan_tockovni" >Znan točkovni toplotni most</ComboBoxItem>
+                                    </ComboBox>
+                                </StackPanel>
+
+                                <Grid Margin="18,0,0,0" Grid.Row="7" Grid.Column="1" Visibility="Hidden">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="80"/>
+                                        <ColumnDefinition Width="150"/>
+                                        <ColumnDefinition Width="80"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="25"/>
+                                        <RowDefinition Height="25"/>
+                                        <RowDefinition Height="25"/>
+                                    </Grid.RowDefinitions>
+
+                                    <ComboBox Grid.RowSpan="3">
+
+                                    </ComboBox>
+
+                                    <Label Grid.Row="1" Grid.Column="1" Content="Dolzina" HorizontalAlignment="Right"/>
+                                    <TextBox Grid.Row="1" Grid.Column="2"/>
+                                    <Label Grid.Row="1" Grid.Column="3" Content="m"/>
+
+                                    <Label Grid.Row="2" Grid.Column="1" Content="Toplotna prevodnost" HorizontalAlignment="Right"/>
+                                    <TextBox Grid.Row="2" Grid.Column="2"/>
+                                    <Label Grid.Row="2" Grid.Column="3" Content="W/m"/>
+                                </Grid>
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="Notranje">
+                            <Grid Background="LightYellow">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="10"/>
+                                    <ColumnDefinition Width="170"/>
+                                    <ColumnDefinition Width="90"/>
+                                    <ColumnDefinition Width="90"/>
+                                    <ColumnDefinition Width="90"/>
+
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition Width="70"/>
+                                    <ColumnDefinition Width="40"/>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition Width="30"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="25"/>
+                                </Grid.RowDefinitions>
+
+                                <Label Grid.Row="1" Grid.Column="1" Content="Tip konstrukcije" HorizontalAlignment="Right"/>
+                                <ComboBox Name="Konstrukcije_notranja" Grid.Row="1" VerticalAlignment="Center" Grid.Column="2" Grid.ColumnSpan="6"  SelectionChanged="showConstructionOptions">
+                                    <ComboBoxItem x:Name="notranje_konstrukcije_med_stanovanji" >Stene med stanovanji</ComboBoxItem>
+                                    <ComboBoxItem x:Name="notranje_konstrukcije_ogrevane_sesednje_stavbe">Stene, ki mejijo na ogrevane sosednje stavbe</ComboBoxItem>
+                                    <ComboBoxItem x:Name="notranje_konstrukcije_stene_protim_majn_ogrevanimi_prostori" >Stene proti stopniščem, hodnikom in drugim manj ogrevanim prostorom</ComboBoxItem>
+
+                                    <ComboBoxItem x:Name="notranje_konstrukcije_med_prostori_razlicnih_enot">Notranje stene med ogrevanimi prostori različnih enot, različnih uporabnikov ali lastnikov v nestanovanjskih stavbah</ComboBoxItem>
+                                    <ComboBoxItem x:Name="notranje_konstrukcije_medetazne_razlicnih_enot" >Medetažne konstrukcije med ogrevanimi prostori različnih enot, različnih uporabnikov ali lastnikov v nestanovanjskih stavbah</ComboBoxItem>
+                                    
+                                </ComboBox>
+
+                                
+                                <Label Grid.Row="2" Grid.Column="1" Content="Naziv" HorizontalAlignment="Right"/>
+                                <TextBox Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="6"/>
+                                
+                                <Label Grid.Row="3" Grid.Column="1" Content="Površina" HorizontalAlignment="Right"/>
+                                <TextBox Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="1"/>
+                                <Label Grid.Row="3" Grid.Column="3" Content="m"/>
+                                
+
+                                <Label Grid.Row="8" Grid.Column="1" Content="Material v skupini" HorizontalAlignment="Right"/>
+                                <ComboBox Grid.Row="8" VerticalAlignment="Center" Grid.Column="2" Grid.ColumnSpan="6">
+                                    <ComboBoxItem x:Name="zidovi_material_skupine_notranje_konstrukcije" >Zidovi</ComboBoxItem>
+                                    <ComboBoxItem x:Name="malte_material_skupine_notranje_konstrukcije" >Malte</ComboBoxItem>
+                                    <ComboBoxItem x:Name="kamen_material_skupine_notranje_konstrukcije" >naravni kamen in zemlja</ComboBoxItem>
+                                    <ComboBoxItem x:Name="ponila_material_skupine_notranje_konstrukcije" >Polnila</ComboBoxItem>
+                                    <ComboBoxItem x:Name="betoni_material_skupine_notranje_konstrukcije" >Betoni</ComboBoxItem>
+                                    <ComboBoxItem x:Name="obloge_material_skupine_notranje_konstrukcije" >Obloge</ComboBoxItem>
+                                    <ComboBoxItem x:Name="hidroizolacije_material_skupine_notranje_konstrukcije" >Hidroizolacije, asfalt, bitumen</ComboBoxItem>
+                                    <ComboBoxItem x:Name="talne_obloge_material_skupine_notranje_konstrukcije" >Talne obloge</ComboBoxItem>
+                                    <ComboBoxItem x:Name="pokrovni_material_skupine_notranje_konstrukcije" >Strešni pokrovni materiali in trakovi</ComboBoxItem>
+                                    <ComboBoxItem x:Name="kovine_material_skupine_notranje_konstrukcije" >Kovine</ComboBoxItem>
+                                    <ComboBoxItem x:Name="izolatorji_material_skupine_notranje_konstrukcije" >Toplotni izolatorji</ComboBoxItem>
+                                    <ComboBoxItem x:Name="zracna_plast_material_skupine_notranje_konstrukcije" >Zračna plast</ComboBoxItem>
+                                    <ComboBoxItem x:Name="estrih_material_skupine_notranje_konstrukcije" >Estrih z registrom ploskovnega ogrevanja</ComboBoxItem>
+                                </ComboBox>
+
+                                <Label Grid.Row="9" Grid.Column="1" Content="Material" HorizontalAlignment="Right"/>
+                                <ComboBox Grid.Row="9" VerticalAlignment="Center" Grid.Column="2" Grid.ColumnSpan="6">
+                                    <ComboBoxItem x:Name="nov_material_notranje_konstrukcije" Content="[dodaj nov material]"/>
+                                </ComboBox>
+
+                                <Label Grid.Row="10" Grid.Column="1" Content="Debelina sloja" HorizontalAlignment="Right"/>
+                                <TextBox Grid.Row="10" Grid.Column="2"/>
+                                <Label Grid.Row="10" Grid.Column="3" Content="cm"/>
+
+                                <Label Grid.Row="12" Grid.Column="2" Content="U= 0.000 W/m2K" FontWeight="Bold" Grid.ColumnSpan="2"/>
+
+                                <Label Grid.Row="12" Grid.Column="4" Content="Umax = 0.000 W/m2K" FontWeight="Bold" Grid.ColumnSpan="2"/>
+
+                                <Label Grid.Row="14" Grid.Column="1" Grid.ColumnSpan="2" Content="Materiali (prvi sloj je znotraj)" Background="LightGray" BorderThickness="1"/>
+                                <Label Grid.Row="14" Grid.Column="3" Content="Debelina (cm)" Background="LightGray" BorderThickness="1"/>
+                                <Label Grid.Row="14" Grid.Column="4" Content="λ (W/mK)" Background="LightGray" BorderThickness="1"/>
+                                <Label Grid.Row="14" Grid.Column="5" Content="μ" Background="LightGray" BorderThickness="1"/>
+                                <Label Grid.Row="14" Grid.Column="6" Content="ρ (kg/m3)" Grid.ColumnSpan="2" Background="LightGray" BorderThickness="1"/>
+                                <Label Grid.Row="14" Grid.Column="8" Content="sd (m)" Background="LightGray" BorderThickness="1"/>
+                                
+                            </Grid>
+                        </TabItem>
+                </TabControl>
+            </TabItem>
+            <TabItem Header="Analiza">
+                    <TabControl>
+                        <TabItem Header="Konstrukcije">
+                        </TabItem>
+                        <TabItem Header="Cone">
+                        </TabItem>
+                        <TabItem Header="Stavbe">
+                        </TabItem>
+                    </TabControl>
+            </TabItem>
+                <TabItem Header="Sistemi">
+                    <TabControl>
+                        <TabItem Header="Prezračevanje">
+                            <Grid Background="LightYellow">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="250"/>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition Width="70"/>
+                                    
+                                    <ColumnDefinition Width="20"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+
+                                    <RowDefinition Height="25"/>
+                                </Grid.RowDefinitions>
+
+                                <Label Grid.Row="1" Grid.Column="0" Content="Vlaženje/razvlaževanje zraka" FontWeight="Bold"/>
+
+                                <Label Grid.Row="2" Grid.Column="0" Content="Stavba/cona je klimatizirana"/>
+                                <ComboBox Grid.Row="2" VerticalAlignment="Center" Grid.Column="3">
+                                    <ComboBoxItem x:Name="stavba_klimatizirana_da" >DA</ComboBoxItem>
+                                    <ComboBoxItem x:Name="stavba_klimatizirana_ne">NE</ComboBoxItem>
+                                </ComboBox>
+
+
+                                <Label Grid.Row="3" Grid.Column="0" Content="Viri vodne pare"/>
+                                <Label Grid.Row="3" Grid.Column="1" Content="gH2O"/>
+                                <Label Grid.Row="3" Grid.Column="2" Content="g/m²h"/>
+                                <TextBox Grid.Row="3" Grid.Column="3"/>
+
+                                <Label Grid.Row="4" Grid.Column="0" Content="Faktor sočasnosti uporabe stavbe"/>
+                                <Label Grid.Row="4" Grid.Column="1" Content="fu,m"/>
+                                <Label Grid.Row="4" Grid.Column="2" Content="'-"/>
+                                <TextBox Grid.Row="4" Grid.Column="3"/>
+
+                                <Label Grid.Row="5" Grid.Column="0" Content="Vlažnost zraka pri razvlaževanju"/>
+                                <Label Grid.Row="5" Grid.Column="1" Content="ϕi,DHU"/>
+                                <Label Grid.Row="5" Grid.Column="2" Content="%"/>
+                                <TextBox Grid.Row="5" Grid.Column="3"/>
+
+                                <Label Grid.Row="6" Grid.Column="0" Content="Vlažnost zraka pri navlaževanju"/>
+                                <Label Grid.Row="6" Grid.Column="1" Content="ϕi,HU"/>
+                                <Label Grid.Row="6" Grid.Column="2" Content="%"/>
+                                <TextBox Grid.Row="6" Grid.Column="3"/>
+
+                                <Label Grid.Row="7" Grid.Column="0" Content="Učinkovitost entalpijskega prenosnika"/>
+                                <Label Grid.Row="7" Grid.Column="1" Content="ηHU"/>
+                                <Label Grid.Row="7" Grid.Column="2" Content="%"/>
+                                <TextBox Grid.Row="7" Grid.Column="3"/>
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="Ogrevanje">
+                        </TabItem>
+                        <TabItem Header="Topla voda">
+                            <Grid Background="LightYellow">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="250"/>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition Width="70"/>
+
+                                    <ColumnDefinition Width="20"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0" Grid.Column="0" Content="TSV" FontWeight="Bold"/>
+
+                                <Label Grid.Row="1" Grid.Column="0" Content="Št. oseb"/>
+                                <Label Grid.Row="1" Grid.Column="1" Content="nos"/>
+                                <TextBox Grid.Row="1" Grid.Column="3"/>
+
+                                <Label Grid.Row="2" Grid.Column="0" Content="Dnevna količina TSV"/>
+                                <Label Grid.Row="2" Grid.Column="1" Content="VW,d"/>
+                                <Label Grid.Row="2" Grid.Column="2" Content="l/dan"/>
+                                <TextBox Grid.Row="2" Grid.Column="3"/>
+
+                                <Label Grid.Row="3" Grid.Column="0" Content="Temperatura TSV"/>
+                                <Label Grid.Row="3" Grid.Column="1" Content="θw,h"/>
+                                <Label Grid.Row="3" Grid.Column="2" Content="°C"/>
+                                <TextBox Grid.Row="3" Grid.Column="3"/>
+
+                                <Label Grid.Row="4" Grid.Column="0" Content="Temperatura hladne vode"/>
+                                <Label Grid.Row="4" Grid.Column="1" Content="θw,h"/>
+                                <Label Grid.Row="4" Grid.Column="2" Content="°C"/>
+                                <TextBox Grid.Row="4" Grid.Column="3"/>
+                            </Grid>
+
+                        </TabItem>
+                        <TabItem Header="Hlajenje">
+                        </TabItem>
+                        <TabItem Header="Razsvetljava">
+                            <Grid Background="LightYellow">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="250"/>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition Width="70"/>
+
+                                    <ColumnDefinition Width="70"/>
+                                    <ColumnDefinition Width="70"/>
+                                    <ColumnDefinition Width="250"/>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition Width="70"/>
+                                    <ColumnDefinition Width="20"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="25"/>
+
+                                    <RowDefinition Height="25"/>
+                                </Grid.RowDefinitions>
+
+                                <Label Grid.Row="1" Grid.Column="0" Content="Razsvetljava" FontWeight="Bold"/>
+                                <Label Grid.Row="1" Grid.Column="6" Content="Izračun P'L" FontWeight="Bold"/>
+
+                                <Label Grid.Row="2" Grid.Column="0" Content="Specifična električna moč vgrajenih svetilk"/>
+                                <Label Grid.Row="2" Grid.Column="1" Content="P'L"/>
+                                <Label Grid.Row="2" Grid.Column="2" Content="W/m2"/>
+                                <TextBox Grid.Row="2" Grid.Column="3"/>
+                                <Label Grid.Row="2" Grid.Column="6" Content="Dolžina cone/prostora"/>
+                                <Label Grid.Row="2" Grid.Column="7" Content="D"/>
+                                <Label Grid.Row="2" Grid.Column="8" Content="m"/>
+                                <TextBox Grid.Row="2" Grid.Column="9"/>
+
+                                <Label Grid.Row="3" Grid.Column="0" Content="Faktor zmanjšanja projektirane osvetlitve"/>
+                                <Label Grid.Row="3" Grid.Column="1" Content="FCA"/>
+                                <Label Grid.Row="3" Grid.Column="2" Content="-"/>
+                                <TextBox Grid.Row="3" Grid.Column="3"/>
+                                <Label Grid.Row="3" Grid.Column="6" Content="Širina cone/prostora"/>
+                                <Label Grid.Row="3" Grid.Column="7" Content="Š"/>
+                                <Label Grid.Row="3" Grid.Column="8" Content="m"/>
+                                <TextBox Grid.Row="3" Grid.Column="9"/>
+
+                                <Label Grid.Row="4" Grid.Column="0" Content="Letno št.ur razsvetljave - podnevi"/>
+                                <Label Grid.Row="4" Grid.Column="1" Content="tD"/>
+                                <Label Grid.Row="4" Grid.Column="2" Content="h/an"/>
+                                <TextBox Grid.Row="4" Grid.Column="3"/>
+                                <Label Grid.Row="4" Grid.Column="6" Content="Višina svetilk nad delovno površino"/>
+                                <Label Grid.Row="4" Grid.Column="7" Content="hL"/>
+                                <Label Grid.Row="4" Grid.Column="8" Content="m"/>
+                                <TextBox Grid.Row="4" Grid.Column="9"/>
+
+                                <Label Grid.Row="5" Grid.Column="0" Content="Letno št.ur razsvetljave - ponoči"/>
+                                <Label Grid.Row="5" Grid.Column="1" Content="tN"/>
+                                <Label Grid.Row="5" Grid.Column="2" Content="h/an"/>
+                                <TextBox Grid.Row="5" Grid.Column="3"/>
+                                <Label Grid.Row="5" Grid.Column="6" Content="Delež svetlobnega toka v smeri stropa"/>
+                                <Label Grid.Row="5" Grid.Column="8" Content="%"/>
+                                <ComboBox Grid.Row="5" VerticalAlignment="Center" Grid.Column="9" Grid.ColumnSpan="2">
+                                    <ComboBoxItem x:Name="do_10_delež_svetlobnega_toka" >do 10</ComboBoxItem>
+                                    <ComboBoxItem x:Name="do_30_delež_svetlobnega_toka">do 30</ComboBoxItem>
+                                    <ComboBoxItem x:Name="do_70_delež_svetlobnega_toka">do 70</ComboBoxItem>
+                                    <ComboBoxItem x:Name="do_90_delež_svetlobnega_toka">do 90</ComboBoxItem>
+                                </ComboBox>
+
+                                <Label Grid.Row="6" Grid.Column="0" Content="E. za polnjenje baterij varnostnih sijalk"/>
+                                <Label Grid.Row="6" Grid.Column="1" Content="Epe"/>
+                                <Label Grid.Row="6" Grid.Column="2" Content="kWh/m²an"/>
+                                <TextBox Grid.Row="6" Grid.Column="3"/>
+                                <Label Grid.Row="6" Grid.Column="6" Content="Korigiran faktor oblike cone"/>
+                                <Label Grid.Row="6" Grid.Column="7" Content="k'"/>
+                                <Label Grid.Row="6" Grid.Column="8" Content="-"/>
+                                <TextBox Grid.Row="6" Grid.Column="9"/>
+
+                                <Label Grid.Row="7" Grid.Column="0" Content="E. za reg.delovanja varnostnih sijalk"/>
+                                <Label Grid.Row="7" Grid.Column="1" Content="Epc"/>
+                                <Label Grid.Row="7" Grid.Column="2" Content="kWh/m²an"/>
+                                <TextBox Grid.Row="7" Grid.Column="3"/>
+                                <Label Grid.Row="7" Grid.Column="6" Content="Površina cone s projektirano osvetljenostjo"/>
+                                <Label Grid.Row="7" Grid.Column="7" Content="Atask"/>
+                                <Label Grid.Row="7" Grid.Column="8" Content="m²"/>
+                                <TextBox Grid.Row="7" Grid.Column="9"/>
+
+                                <Label Grid.Row="8" Grid.Column="0" Content="Način vklopa in izklopa svetilk"/>
+                                <ComboBox Grid.Row="8" VerticalAlignment="Center" Grid.Column="3" Grid.ColumnSpan="2">
+                                    <ComboBoxItem x:Name="ročni_način_vklopa_izklopa_svetilk" >Ročni vklop</ComboBoxItem>
+                                    <ComboBoxItem x:Name="avtomatski_način_vklopa_izklopa_svetilk">Avtomatsko zatemnjevanje</ComboBoxItem>
+                                    <ComboBoxItem x:Name="ročno_avtomatski_način_vklopa_izklopa_svetilk">Ročni vklop, samodejni izklop</ComboBoxItem>
+                                </ComboBox>
+                                <Label Grid.Row="8" Grid.Column="6" Content="Osvetlitev delovnih površin"/>
+                                <Label Grid.Row="8" Grid.Column="7" Content="Etask"/>
+                                <Label Grid.Row="8" Grid.Column="8" Content="lux"/>
+                                <TextBox Grid.Row="8" Grid.Column="9"/>
+
+                                <Label Grid.Row="9" Grid.Column="0" Content="Faktor uporabe stavbe"/>
+                                <Label Grid.Row="9" Grid.Column="1" Content="Fo"/>
+                                <TextBox Grid.Row="9" Grid.Column="3"/>
+                                <Label Grid.Row="9" Grid.Column="6" Content="Površina okolice delovnih površin"/>
+                                <Label Grid.Row="9" Grid.Column="7" Content="Asur"/>
+                                <Label Grid.Row="9" Grid.Column="8" Content="m²"/>
+                                <TextBox Grid.Row="9" Grid.Column="9"/>
+
+                                <Label Grid.Row="10" Grid.Column="0" Content="Faktor dnevne svetlobe"/>
+                                <Label Grid.Row="10" Grid.Column="1" Content="FDST"/>
+                                <Label Grid.Row="10" Grid.Column="2" Content="%"/>
+                                <TextBox Grid.Row="10" Grid.Column="3"/>
+                                <Label Grid.Row="10" Grid.Column="6" Content="Osvetlitev okoliških površin"/>
+                                <Label Grid.Row="10" Grid.Column="7" Content="Esur"/>
+                                <Label Grid.Row="10" Grid.Column="8" Content="lux"/>
+                                <TextBox Grid.Row="10" Grid.Column="9"/>
+
+                                <Label Grid.Row="11" Grid.Column="0" Content="Položaj transparentnih gradnikov"/>
+                                <ComboBox Grid.Row="11" VerticalAlignment="Center" Grid.Column="3" Grid.ColumnSpan="2">
+                                    <ComboBoxItem x:Name="fasade_brez_senčil_položaj_transparentnih_gradnikov" >J fasade brez senčil</ComboBoxItem>
+                                    <ComboBoxItem x:Name="fasade_s_senčili_položaj_transparentnih_gradnikov">J fasade s senčili, druge fasade</ComboBoxItem>
+                                    <ComboBoxItem x:Name="stropni_svetlobniki_položaj_transparentnih_gradnikov">Stropni svetlobniki</ComboBoxItem>
+                                </ComboBox>
+                                <Label Grid.Row="11" Grid.Column="6" Content="Faktor zmanjšanja projektirane osvetlitve"/>
+                                <Label Grid.Row="11" Grid.Column="7" Content="FCA"/>
+                                <Label Grid.Row="11" Grid.Column="8" Content="-"/>
+                                <TextBox Grid.Row="11" Grid.Column="9"/>
+
+                                <Label Grid.Row="12" Grid.Column="0" Content="Faktor naravne osvetlitve"/>
+                                <Label Grid.Row="12" Grid.Column="1" Content="FD"/>
+                                <TextBox Grid.Row="12" Grid.Column="3"/>
+                                <Label Grid.Row="12" Grid.Column="6" Content="Vrsta svetilk"/>
+                                <ComboBox Grid.Row="12" VerticalAlignment="Center" Grid.Column="9" Grid.ColumnSpan="2">
+                                    <ComboBoxItem x:Name="CFL_vrsta_svetilk" >Kompaktne fluorescenčne sijalke (CFL)</ComboBoxItem>
+                                    <ComboBoxItem x:Name="T5_vrsta_svetilk">Fluorescenčne sijalke T5</ComboBoxItem>
+                                    <ComboBoxItem x:Name="LED_vrsta_svetilk">LED</ComboBoxItem>
+                                </ComboBox>
+
+                                <Label Grid.Row="13" Grid.Column="0" Content="Sistem razsvetljave"/>
+                                <ComboBox Grid.Row="13" VerticalAlignment="Center" Grid.Column="3" Grid.ColumnSpan="2">
+                                    <ComboBoxItem x:Name="brez_zatemnjevanja_sistem_razsvetljave" >LED/fluorescentne brez zatemnjevanja</ComboBoxItem>
+                                    <ComboBoxItem x:Name="fluorescentne_sistem_razsvetljave">Fluorescentne z zatemnjevanjem</ComboBoxItem>
+                                    <ComboBoxItem x:Name="led_sistem_razsvetljave">LED z zatemnjevanjem</ComboBoxItem>
+                                </ComboBox>
+                                <Label Grid.Row="13" Grid.Column="6" Content="Faktor vzdrževanja svetilk"/>
+                                <Label Grid.Row="13" Grid.Column="7" Content="FMF"/>
+                                <Label Grid.Row="13" Grid.Column="8" Content="-"/>
+                                <TextBox Grid.Row="13" Grid.Column="9"/>
+
+                                <Label Grid.Row="14" Grid.Column="0" Content="Faktor zmanjšanja svetlobnega toka"/>
+                                <Label Grid.Row="14" Grid.Column="1" Content="FC"/>
+                                <TextBox Grid.Row="14" Grid.Column="3"/>
+                                <Label Grid.Row="14" Grid.Column="6" Content="Energijska učinkovitost vira svetlobe"/>
+                                <Label Grid.Row="14" Grid.Column="7" Content="ηL"/>
+                                <Label Grid.Row="14" Grid.Column="8" Content="lm/W"/>
+                                <TextBox Grid.Row="14" Grid.Column="9"/>
+
+                                <Label Grid.Row="15" Grid.Column="0" Content="Dovedena energija za razsvetljavo"/>
+                                <Label Grid.Row="15" Grid.Column="1" Content="EL,del,an"/>
+                                <Label Grid.Row="15" Grid.Column="2" Content="kWh/an"/>
+                                <TextBox Grid.Row="15" Grid.Column="3"/>
+                                <Label Grid.Row="15" Grid.Column="6" Content="Specifična el.moč vgrajenih svetilk"/>
+                                <Label Grid.Row="15" Grid.Column="7" Content="P'L"/>
+                                <Label Grid.Row="15" Grid.Column="8" Content="W/m2"/>
+                                <TextBox Grid.Row="15" Grid.Column="9"/>
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="OVE">
+                        </TabItem>
+                        <TabItem Header="Drugi sistemi">
+                        </TabItem>
+                    </TabControl>
+                </TabItem>
+                <TabItem Header="Izkaz">
+                    <Grid Background="LightYellow">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40"/>
+                            <ColumnDefinition Width="40"/>
+                            <ColumnDefinition Width="40"/>
+                            <ColumnDefinition Width="40"/>
+
+                            <ColumnDefinition Width="40"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="25"/>
+                        </Grid.RowDefinitions>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </Grid>
+        
+
+    </Grid>
+</Window>

@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "B.E.E. calculator", "B.E.E. calculator\B.E.E. calculator.csproj", "{3CB9A2C0-2C28-45B1-A7C8-D7911673075E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3CB9A2C0-2C28-45B1-A7C8-D7911673075E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CB9A2C0-2C28-45B1-A7C8-D7911673075E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CB9A2C0-2C28-45B1-A7C8-D7911673075E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CB9A2C0-2C28-45B1-A7C8-D7911673075E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4709B410-6729-4FE6-A295-2EDE8BE3B7C0}
+	EndGlobalSection
+EndGlobal

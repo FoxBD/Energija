@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfProjekt xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Projekt>
+    <Naziv_projekta>hello</Naziv_projekta>
+    <Ulica_kraj>hello</Ulica_kraj>
+    <Katastrska_obcina>Cepinci</Katastrska_obcina>
+    <GK_koordinate_kraja_GKX>1212312</GK_koordinate_kraja_GKX>
+    <GK_koordinate_kraja_GKY>123123123</GK_koordinate_kraja_GKY>
+    <Opredelitev_stavbe>Energetsko manj zahtevna stavba</Opredelitev_stavbe>
+    <Vrsta_gradnje>Rekonstruirana</Vrsta_gradnje>
+    <Javna_stavba>DA</Javna_stavba>
+  </Projekt>
+</ArrayOfProjekt>
