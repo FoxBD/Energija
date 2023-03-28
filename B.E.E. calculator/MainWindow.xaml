@@ -50,7 +50,7 @@
                 <TabControl>
                     <TabItem Header="Podatki o projektu">
                         <Grid>
-                                <pogledi:OsnovniPodatki/>
+                                <pogledi:OsnovniPodatki x:Name="osnovniPodatki"/>
                             </Grid>
                     </TabItem>
                     <TabItem Header="Meterološki podatki projekta">

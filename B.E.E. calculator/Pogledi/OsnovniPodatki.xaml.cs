@@ -24,6 +24,9 @@ namespace B.E.E._calculator.Pogledi
         public OsnovniPodatki()
         {
             InitializeComponent();
+            
+            DataContext= this;
+
             seznam_obcin.load_katastrska_obcina_combobox(obcine_list);
             katastrska_obcina_combobox.ItemsSource = obcine_list;
         }

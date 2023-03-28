@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using B.E.E._calculator.Pogledi;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -21,6 +22,7 @@ using System.Windows.Shapes;
 using System.Xml.Serialization;
 
 
+
 namespace B.E.E._calculator
 {
     /// <summary>
@@ -41,7 +43,7 @@ namespace B.E.E._calculator
 
         private void add_new_project(object sender, RoutedEventArgs e)
         {
-            /*
+            
             string naziv_projekta;
             string ulica_kraj;
             string katastrska_obcina;
@@ -50,29 +52,28 @@ namespace B.E.E._calculator
             string opredelitev_stavbe;
             string vrsta_gradnje;
             string javna_stavba;
-            if (naziv_projekta_vnos.Text.Length != 0)
+            if (osnovniPodatki.naziv_projekta_vnos.Text.Length != 0)
             {
-                naziv_projekta = naziv_projekta_vnos.Text;
-                ulica_kraj = ulica_kraj_vnos.Text;
-                katastrska_obcina = katastrska_obcina_combobox.Text;
-                GKX = GKX_vnos.Text;
-                GKY = GKY_vnos.Text;
-                opredelitev_stavbe = opredelitev_stavbe_combobox.Text;
-                vrsta_gradnje = vrsta_gradnje_combobox.Text;
-                javna_stavba = javna_stavba_combobox.Text;
+                naziv_projekta = osnovniPodatki.naziv_projekta_vnos.Text;
+                ulica_kraj = osnovniPodatki.ulica_kraj_vnos.Text;
+                katastrska_obcina = osnovniPodatki.katastrska_obcina_combobox.Text;
+                GKX = osnovniPodatki.GKX_vnos.Text;
+                GKY = osnovniPodatki.GKY_vnos.Text;
+                opredelitev_stavbe = osnovniPodatki.opredelitev_stavbe_combobox.Text;
+                vrsta_gradnje = osnovniPodatki.vrsta_gradnje_combobox.Text;
+                javna_stavba = osnovniPodatki.javna_stavba_combobox.Text;
 
                 Projekt novProjekt = new Projekt(naziv_projekta, ulica_kraj, katastrska_obcina, int.Parse(GKX), int.Parse(GKY), opredelitev_stavbe, vrsta_gradnje, javna_stavba);
                 Seznam.seznam_projektov.Add(novProjekt);
-                naziv_projekta_vnos.Text = "";
-                ulica_kraj_vnos.Text = "";
-                katastrska_obcina_combobox.Text = "";
-                GKX_vnos.Text = "";
-                GKY_vnos.Text = "";
-                opredelitev_stavbe_combobox.Text = "";
-                vrsta_gradnje_combobox.Text = "";
-                javna_stavba_combobox.Text = "";
+                osnovniPodatki.naziv_projekta_vnos.Text = "";
+                osnovniPodatki.ulica_kraj_vnos.Text = "";
+                osnovniPodatki.katastrska_obcina_combobox.Text = "";
+                osnovniPodatki.GKX_vnos.Text = "";
+                osnovniPodatki.GKY_vnos.Text = "";
+                osnovniPodatki.opredelitev_stavbe_combobox.Text = "";
+                osnovniPodatki.vrsta_gradnje_combobox.Text = "";
+                osnovniPodatki.javna_stavba_combobox.Text = "";
             }
-        */
         }
 
 
@@ -90,17 +91,14 @@ namespace B.E.E._calculator
             
             if (Pokazi_projekte.SelectedIndex > -1)
             {
-                /*
-                naziv_projekta_vnos.Text = Seznam.seznam_projektov.ElementAt(Pokazi_projekte.SelectedIndex).Naziv_projekta;
-                
-                ulica_kraj_vnos.Text = Seznam.seznam_projektov.ElementAt(Pokazi_projekte.SelectedIndex).Ulica_kraj;
-                katastrska_obcina_combobox.Text = Seznam.seznam_projektov.ElementAt(Pokazi_projekte.SelectedIndex).Katastrska_obcina;
-                GKX_vnos.Text = Seznam.seznam_projektov.ElementAt(Pokazi_projekte.SelectedIndex).GK_koordinate_kraja_GKX.ToString();
-                GKY_vnos.Text = Seznam.seznam_projektov.ElementAt(Pokazi_projekte.SelectedIndex).GK_koordinate_kraja_GKY.ToString();
-                opredelitev_stavbe_combobox.Text = Seznam.seznam_projektov.ElementAt(Pokazi_projekte.SelectedIndex).Opredelitev_stavbe;
-                vrsta_gradnje_combobox.Text = Seznam.seznam_projektov.ElementAt(Pokazi_projekte.SelectedIndex).Vrsta_gradnje;
-                javna_stavba_combobox.Text = Seznam.seznam_projektov.ElementAt(Pokazi_projekte.SelectedIndex).Javna_stavba;
-                */
+                osnovniPodatki.naziv_projekta_vnos.Text = Seznam.seznam_projektov.ElementAt(Pokazi_projekte.SelectedIndex).Naziv_projekta;
+                osnovniPodatki.ulica_kraj_vnos.Text = Seznam.seznam_projektov.ElementAt(Pokazi_projekte.SelectedIndex).Ulica_kraj;
+                osnovniPodatki.katastrska_obcina_combobox.Text = Seznam.seznam_projektov.ElementAt(Pokazi_projekte.SelectedIndex).Katastrska_obcina;
+                osnovniPodatki.GKX_vnos.Text = Seznam.seznam_projektov.ElementAt(Pokazi_projekte.SelectedIndex).GK_koordinate_kraja_GKX.ToString();
+                osnovniPodatki.GKY_vnos.Text = Seznam.seznam_projektov.ElementAt(Pokazi_projekte.SelectedIndex).GK_koordinate_kraja_GKY.ToString();
+                osnovniPodatki.opredelitev_stavbe_combobox.Text = Seznam.seznam_projektov.ElementAt(Pokazi_projekte.SelectedIndex).Opredelitev_stavbe;
+                osnovniPodatki.vrsta_gradnje_combobox.Text = Seznam.seznam_projektov.ElementAt(Pokazi_projekte.SelectedIndex).Vrsta_gradnje;
+                osnovniPodatki.javna_stavba_combobox.Text = Seznam.seznam_projektov.ElementAt(Pokazi_projekte.SelectedIndex).Javna_stavba;
             }
         }
 
@@ -138,7 +136,7 @@ namespace B.E.E._calculator
                 }
             }
         }
-        
+
         // -----------------------------------------------------------------------------------------------------------------
     } 
 }
