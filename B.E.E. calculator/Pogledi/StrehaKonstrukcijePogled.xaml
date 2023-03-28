@@ -1,0 +1,104 @@
+﻿<UserControl x:Class="B.E.E._calculator.Pogledi.StrehaKonstrukcijePogled"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:B.E.E._calculator.Pogledi"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Background="LightYellow">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="170"/>
+            <ColumnDefinition Width="90"/>
+            <ColumnDefinition Width="90"/>
+            <ColumnDefinition Width="90"/>
+
+            <ColumnDefinition Width="60"/>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="30"/>
+            <ColumnDefinition Width="60"/>
+            <ColumnDefinition Width="30"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
+
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
+
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="25"/>
+
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="25"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="1" Grid.Column="1" Content="Tip konstrukcije" HorizontalAlignment="Right"/>
+        <ComboBox Name="Konstrukcije_streha" Grid.Row="1" VerticalAlignment="Center" Grid.Column="2" Grid.ColumnSpan="6">
+            <ComboBoxItem x:Name="posevna_streha_konstrukcije" >Poševna streha nad ogrevanim podstrešjem</ComboBoxItem>
+            <ComboBoxItem x:Name="ravna_streha_konstrukcije">Ravna streha</ComboBoxItem>
+        </ComboBox>
+
+        <Label Grid.Row="2" Grid.Column="1" Content="Naziv" HorizontalAlignment="Right"/>
+        <TextBox Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="6"/>
+
+        <Label Grid.Row="3" Grid.Column="1" Content="Površina" HorizontalAlignment="Right"/>
+        <TextBox Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="1"/>
+        <Label Grid.Row="3" Grid.Column="3" Content="m"/>
+
+        <Label Grid.Row="3" Grid.Column="4" Content="Temp. in vlažnost notranjega zraka" Grid.ColumnSpan="3" HorizontalAlignment="Right"/>
+        <Button Grid.Row="3" Grid.Column="7" MaxWidth="22"/>
+
+        <Label x:Name="prezracevanje_streha_label" Grid.Row="4" Grid.Column="1" Content="Prezračevanje" HorizontalAlignment="Right"/>
+        <RadioButton x:Name="prezracevanje_streha_radiobtnDA" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Da" Checked="RadioButton_prezracevanje"/>
+        <RadioButton x:Name="prezracevanje_streha_radiobtnNE" Grid.Row="4" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Ne" Checked="RadioButton_prezracevanje"/>
+
+
+        <Label Grid.Row="6" Grid.Column="1" Content="Material v skupini" HorizontalAlignment="Right"/>
+        <ComboBox Grid.Row="6" VerticalAlignment="Center" Grid.Column="2" Grid.ColumnSpan="6">
+            <ComboBoxItem x:Name="zidovi_material_skupine_streha" >Zidovi</ComboBoxItem>
+            <ComboBoxItem x:Name="malte_material_skupine_streha" >Malte</ComboBoxItem>
+            <ComboBoxItem x:Name="kamen_material_skupine_streha" >naravni kamen in zemlja</ComboBoxItem>
+            <ComboBoxItem x:Name="ponila_material_skupine_streha" >Polnila</ComboBoxItem>
+            <ComboBoxItem x:Name="betoni_material_skupine_streha" >Betoni</ComboBoxItem>
+            <ComboBoxItem x:Name="obloge_material_skupine_streha" >Obloge</ComboBoxItem>
+            <ComboBoxItem x:Name="hidroizolacije_material_skupine_streha" >Hidroizolacije, asfalt, bitumen</ComboBoxItem>
+            <ComboBoxItem x:Name="talne_obloge_material_skupine_streha" >Talne obloge</ComboBoxItem>
+            <ComboBoxItem x:Name="pokrovni_material_skupine_streha" >Strešni pokrovni materiali in trakovi</ComboBoxItem>
+            <ComboBoxItem x:Name="kovine_material_skupine_streha" >Kovine</ComboBoxItem>
+            <ComboBoxItem x:Name="izolatorji_material_skupine_streha" >Toplotni izolatorji</ComboBoxItem>
+            <ComboBoxItem x:Name="zracna_plast_material_skupine_streha" >Zračna plast</ComboBoxItem>
+            <ComboBoxItem x:Name="estrih_material_skupine_streha" >Estrih z registrom ploskovnega ogrevanja</ComboBoxItem>
+        </ComboBox>
+
+        <Label Grid.Row="7" Grid.Column="1" Content="Material" HorizontalAlignment="Right"/>
+        <ComboBox Grid.Row="7" VerticalAlignment="Center" Grid.Column="2" Grid.ColumnSpan="6">
+            <ComboBoxItem x:Name="nov_material_streha" Content="[dodaj nov material]"/>
+        </ComboBox>
+
+        <Label Grid.Row="8" Grid.Column="1" Content="Debelina sloja" HorizontalAlignment="Right"/>
+        <TextBox Grid.Row="8" Grid.Column="2"/>
+        <Label Grid.Row="8" Grid.Column="3" Content="cm"/>
+
+        <Label Grid.Row="10" Grid.Column="2" Content="U= 0.000 W/m2K" FontWeight="Bold" Grid.ColumnSpan="2"/>
+
+        <Label Grid.Row="10" Grid.Column="4" Content="Umax = 0.000 W/m2K" FontWeight="Bold" Grid.ColumnSpan="2"/>
+
+        <Label Grid.Row="12" Grid.Column="1" Grid.ColumnSpan="2" Content="Materiali (prvi sloj je znotraj)" Background="LightGray" BorderThickness="1"/>
+        <Label Grid.Row="12" Grid.Column="3" Content="Debelina (cm)" Background="LightGray" BorderThickness="1"/>
+        <Label Grid.Row="12" Grid.Column="4" Content="λ (W/mK)" Background="LightGray" BorderThickness="1"/>
+        <Label Grid.Row="12" Grid.Column="5" Content="μ" Background="LightGray" BorderThickness="1"/>
+        <Label Grid.Row="12" Grid.Column="6" Content="ρ (kg/m3)" Grid.ColumnSpan="2" Background="LightGray" BorderThickness="1"/>
+        <Label Grid.Row="12" Grid.Column="8" Content="sd (m)" Background="LightGray" BorderThickness="1"/>
+
+    </Grid>
+</UserControl>
