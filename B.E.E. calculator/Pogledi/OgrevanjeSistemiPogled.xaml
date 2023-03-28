@@ -7,6 +7,91 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Background="LightYellow">
-            
+        <TabControl>
+            <TabItem Header="Sistem ogrevanja">
+                <Grid Background="LightYellow">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="25"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="45"/>
+                        
+                        <ColumnDefinition Width="45"/>
+                        
+                        <ColumnDefinition Width="180"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="90"/>
+                        <ColumnDefinition Width="50"/>
+
+
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="1" Grid.Column="1" Content="Cona (e)" HorizontalAlignment="Right"/>
+                    <TextBox x:Name="izbira_cone_vnos" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="5"/>
+
+                    <Label Grid.Row="2" Grid.Column="1" Content="Naziv" HorizontalAlignment="Right"/>
+                    <TextBox x:Name="naziv_ogrevanja_vnos" Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="5"/>
+
+                    <Label Grid.Row="3" Grid.Column="1" Content="Vrsta ogrevalnega sistema" HorizontalAlignment="Right"/>
+                    <ComboBox x:Name="vrsta_ogrevanja_combobox" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="5">
+                        <ComboBoxItem x:Name="opredelitev_prazna" IsSelected="True" Visibility="Collapsed"></ComboBoxItem>
+                        <ComboBoxItem x:Name="nizkotemp30" >Nizkotemeraturni (30°C)</ComboBoxItem>
+                        <ComboBoxItem x:Name="nizkotemp35">Nizkotemperaturni (35°C)</ComboBoxItem>
+                        <ComboBoxItem x:Name="srednjetemp50">Srednjetemperaturni (50°C)</ComboBoxItem>
+                        <ComboBoxItem x:Name="visokotemp70">Visokotemperaturni (70°C)</ComboBoxItem>
+                    </ComboBox>
+
+                    <Label Grid.Row="4" Grid.Column="1" Content="Topla voda" HorizontalAlignment="Right"/>
+                    <RadioButton x:Name="topla_voda_radiobtnDA" Grid.Row="4" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Da"/>
+                    <RadioButton x:Name="topla_voda_radiobtnNE" Grid.Row="4" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Ne"/>
+
+                    <Label Grid.Row="5" Grid.Column="1" Content="Število generatorjev toplote" HorizontalAlignment="Right"/>
+                    <TextBox x:Name="st_generatorjev_vnos" Grid.Row="5" Grid.Column="3" Grid.ColumnSpan="2"/>
+
+                    <Label Grid.Row="5" Grid.Column="5" Content="Število hranilnikov toplote" HorizontalAlignment="Right"/>
+                    <TextBox x:Name="st_hranilnikov_vnos" Grid.Row="5" Grid.Column="7"/>
+
+                    <Label Grid.Row="6" Grid.Column="1" Content="Vezava GT" HorizontalAlignment="Right"/>
+                    <RadioButton x:Name="vezava_radiobtnVZPOREDNO" Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="2" VerticalAlignment="Center" Content="vzporedno"/>
+                    <RadioButton x:Name="vezava_radiobtnZAPOREDNO" Grid.Row="6" Grid.Column="5" VerticalAlignment="Center" Content="zaporedno"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Generatorji">
+                <Grid>
+                    
+                </Grid>
+            </TabItem>
+            <TabItem Header="hranilniki toplote">
+                <Grid>
+
+                </Grid>
+            </TabItem>
+            <TabItem Header="Razvodni sistemi">
+                <Grid>
+
+                </Grid>
+            </TabItem>
+            <TabItem Header="Ogrevala">
+                <Grid>
+
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </UserControl>
