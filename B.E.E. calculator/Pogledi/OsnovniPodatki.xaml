@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:B.E.E._calculator.Pogledi"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="500" d:DesignWidth="900">
     <Grid Background="LightYellow">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="160"/>
@@ -37,6 +37,8 @@
 
         <Label Grid.Row="1" Grid.Column="0" Content="Naziv projekta" HorizontalAlignment="Left" Margin="74,0,0,0"/>
         <TextBox x:Name="naziv_projekta_vnos" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2"/>
+        
+        <Label Grid.Row="1" Grid.Column="6" Content="This is test" Margin="0,0,-68,0"/>
 
         <Label Grid.Row="2" Grid.Column="0" Content="Ulica, kraj" HorizontalAlignment="Left" Margin="99,0,0,0"/>
         <TextBox x:Name="ulica_kraj_vnos" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2"/>
