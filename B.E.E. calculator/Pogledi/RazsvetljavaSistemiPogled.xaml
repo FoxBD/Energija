@@ -5,26 +5,26 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:B.E.E._calculator.Pogledi"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="1100">
-    <Grid Background="LightYellow">
+             d:DesignHeight="450" d:DesignWidth="1700">
+    <Grid Background="LightYellow" ShowGridLines="False">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="250"/>
-            <ColumnDefinition Width="60"/>
-            <ColumnDefinition Width="60"/>
-            <ColumnDefinition Width="70"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="140"/>
 
-            <ColumnDefinition Width="70"/>
-            <ColumnDefinition Width="70"/>
-            <ColumnDefinition Width="250"/>
-            <ColumnDefinition Width="60"/>
-            <ColumnDefinition Width="60"/>
-            <ColumnDefinition Width="70"/>
+            <ColumnDefinition Width="110"/>
             <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="140"/>
+            <ColumnDefinition Width="110"/>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
-            <RowDefinition Height="25"/>
+            <RowDefinition Height="30"/>
             <RowDefinition Height="25"/>
             <RowDefinition Height="25"/>
 
@@ -46,13 +46,14 @@
             <RowDefinition Height="25"/>
         </Grid.RowDefinitions>
 
-        <Label Grid.Row="1" Grid.Column="0" Content="Razsvetljava" FontWeight="Bold"/>
-        <Label Grid.Row="1" Grid.Column="6" Content="Izračun P'L" FontWeight="Bold"/>
+        <Label Style="{StaticResource Label_naslov}"  Grid.Row="1" Grid.Column="0" Content="Razsvetljava" FontWeight="Bold"/>
+        <Label Style="{StaticResource Label_naslov}" Grid.Row="1" Grid.Column="6" Content="Izračun P'L" FontWeight="Bold"/>
 
         <Label Grid.Row="2" Grid.Column="0" Content="Specifična električna moč vgrajenih svetilk"/>
         <Label Grid.Row="2" Grid.Column="1" Content="P'L"/>
         <Label Grid.Row="2" Grid.Column="2" Content="W/m2"/>
-        <TextBox Grid.Row="2" Grid.Column="3"/>
+        <TextBox Style="{StaticResource Textbox_vnos}" x:Name="VnosSpecElMoc" Grid.Row="2" Grid.Column="3"/>
+        
         <Label Grid.Row="2" Grid.Column="6" Content="Dolžina cone/prostora"/>
         <Label Grid.Row="2" Grid.Column="7" Content="D"/>
         <Label Grid.Row="2" Grid.Column="8" Content="m"/>
@@ -62,6 +63,7 @@
         <Label Grid.Row="3" Grid.Column="1" Content="FCA"/>
         <Label Grid.Row="3" Grid.Column="2" Content="-"/>
         <TextBox Grid.Row="3" Grid.Column="3"/>
+        
         <Label Grid.Row="3" Grid.Column="6" Content="Širina cone/prostora"/>
         <Label Grid.Row="3" Grid.Column="7" Content="Š"/>
         <Label Grid.Row="3" Grid.Column="8" Content="m"/>
@@ -92,23 +94,24 @@
         <Label Grid.Row="6" Grid.Column="0" Content="E. za polnjenje baterij varnostnih sijalk"/>
         <Label Grid.Row="6" Grid.Column="1" Content="Epe"/>
         <Label Grid.Row="6" Grid.Column="2" Content="kWh/m²an"/>
-        <TextBox Grid.Row="6" Grid.Column="3"/>
+        <TextBox Style="{StaticResource Textbox_vnos}" Grid.Row="6" Grid.Column="3" x:Name="VnosPolnjenjeBaterij"/>
         <Label Grid.Row="6" Grid.Column="6" Content="Korigiran faktor oblike cone"/>
         <Label Grid.Row="6" Grid.Column="7" Content="k'"/>
         <Label Grid.Row="6" Grid.Column="8" Content="-"/>
         <TextBox Grid.Row="6" Grid.Column="9"/>
 
-        <Label Grid.Row="7" Grid.Column="0" Content="E. za reg.delovanja varnostnih sijalk"/>
+        <Label Grid.Row="7" Grid.Column="0" Content="E. za reg. delovanja varnostnih sijalk"/>
         <Label Grid.Row="7" Grid.Column="1" Content="Epc"/>
         <Label Grid.Row="7" Grid.Column="2" Content="kWh/m²an"/>
-        <TextBox Grid.Row="7" Grid.Column="3"/>
+        <TextBox Style="{StaticResource Textbox_vnos}" Grid.Row="7" Grid.Column="3" x:Name="VnosRegDelovanjaSijalk"/>
+        
         <Label Grid.Row="7" Grid.Column="6" Content="Površina cone s projektirano osvetljenostjo"/>
         <Label Grid.Row="7" Grid.Column="7" Content="Atask"/>
         <Label Grid.Row="7" Grid.Column="8" Content="m²"/>
-        <TextBox Grid.Row="7" Grid.Column="9"/>
+        <TextBox Style="{StaticResource Textbox_vnos}" Grid.Row="7" Grid.Column="9" x:Name="VnosPovrsinaCone"/>
 
         <Label Grid.Row="8" Grid.Column="0" Content="Način vklopa in izklopa svetilk"/>
-        <ComboBox Grid.Row="8" VerticalAlignment="Center" Grid.Column="3" Grid.ColumnSpan="2">
+        <ComboBox Name="načinVklopaIzklopaSvetilk" Grid.Row="8" VerticalAlignment="Center" Grid.Column="3" Grid.ColumnSpan="2" SelectionChanged="faktorUprabeStavbe">
             <ComboBoxItem x:Name="ročni_način_vklopa_izklopa_svetilk" >Ročni vklop</ComboBoxItem>
             <ComboBoxItem x:Name="avtomatski_način_vklopa_izklopa_svetilk">Avtomatsko zatemnjevanje</ComboBoxItem>
             <ComboBoxItem x:Name="ročno_avtomatski_način_vklopa_izklopa_svetilk">Ročni vklop, samodejni izklop</ComboBoxItem>
@@ -116,11 +119,11 @@
         <Label Grid.Row="8" Grid.Column="6" Content="Osvetlitev delovnih površin"/>
         <Label Grid.Row="8" Grid.Column="7" Content="Etask"/>
         <Label Grid.Row="8" Grid.Column="8" Content="lux"/>
-        <TextBox Grid.Row="8" Grid.Column="9"/>
+        <TextBox Style="{StaticResource Textbox_vnos}" Grid.Row="8" Grid.Column="9" x:Name="VnosOsvetlitevPovrsin"/>
 
         <Label Grid.Row="9" Grid.Column="0" Content="Faktor uporabe stavbe"/>
         <Label Grid.Row="9" Grid.Column="1" Content="Fo"/>
-        <TextBox Grid.Row="9" Grid.Column="3"/>
+        <TextBox Grid.Row="9" Grid.Column="3" x:Name="faktorUporabeStabe"/>
         <Label Grid.Row="9" Grid.Column="6" Content="Površina okolice delovnih površin"/>
         <Label Grid.Row="9" Grid.Column="7" Content="Asur"/>
         <Label Grid.Row="9" Grid.Column="8" Content="m²"/>
@@ -129,14 +132,14 @@
         <Label Grid.Row="10" Grid.Column="0" Content="Faktor dnevne svetlobe"/>
         <Label Grid.Row="10" Grid.Column="1" Content="FDST"/>
         <Label Grid.Row="10" Grid.Column="2" Content="%"/>
-        <TextBox Grid.Row="10" Grid.Column="3"/>
+        <TextBox Style="{StaticResource Textbox_vnos}" Grid.Row="10" Grid.Column="3" x:Name="VnosFaktorDnevneSvetlobe"/>
         <Label Grid.Row="10" Grid.Column="6" Content="Osvetlitev okoliških površin"/>
         <Label Grid.Row="10" Grid.Column="7" Content="Esur"/>
         <Label Grid.Row="10" Grid.Column="8" Content="lux"/>
-        <TextBox Grid.Row="10" Grid.Column="9"/>
+        <TextBox Style="{StaticResource Textbox_vnos}" Grid.Row="10" Grid.Column="9" x:Name="VnosOsvetlitevOkoliskihPovrsin"/>
 
         <Label Grid.Row="11" Grid.Column="0" Content="Položaj transparentnih gradnikov"/>
-        <ComboBox Grid.Row="11" VerticalAlignment="Center" Grid.Column="3" Grid.ColumnSpan="2">
+        <ComboBox Name="položajTransparentnihGradnikov" Grid.Row="11" VerticalAlignment="Center" Grid.Column="3" Grid.ColumnSpan="2" SelectionChanged="faktorNaravneOsvetlitve">
             <ComboBoxItem x:Name="fasade_brez_senčil_položaj_transparentnih_gradnikov" >J fasade brez senčil</ComboBoxItem>
             <ComboBoxItem x:Name="fasade_s_senčili_položaj_transparentnih_gradnikov">J fasade s senčili, druge fasade</ComboBoxItem>
             <ComboBoxItem x:Name="stropni_svetlobniki_položaj_transparentnih_gradnikov">Stropni svetlobniki</ComboBoxItem>
@@ -148,7 +151,7 @@
 
         <Label Grid.Row="12" Grid.Column="0" Content="Faktor naravne osvetlitve"/>
         <Label Grid.Row="12" Grid.Column="1" Content="FD"/>
-        <TextBox Grid.Row="12" Grid.Column="3"/>
+        <TextBox Grid.Row="12" Grid.Column="3" x:Name="faktor"/>
         <Label Grid.Row="12" Grid.Column="6" Content="Vrsta svetilk"/>
         <ComboBox Grid.Row="12" VerticalAlignment="Center" Grid.Column="9" Grid.ColumnSpan="2">
             <ComboBoxItem x:Name="CFL_vrsta_svetilk" >Kompaktne fluorescenčne sijalke (CFL)</ComboBoxItem>

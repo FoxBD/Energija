@@ -4,6 +4,62 @@
              xmlns:local="clr-namespace:B.E.E._calculator"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        
+        <!-- GLOBAL -->
+        
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="Gray" />
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="12" />
+        </Style>
+
+        <Style TargetType="TabItem">
+            <Setter Property="Foreground" Value="Gray" />
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="12" />
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="Foreground" Value="DarkSlateGray" />
+            <Setter Property="Background" Value="LightYellow"/>
+            <Setter Property="BorderThickness" Value="0,0,0,1.5"/>
+            <Setter Property="BorderBrush" Value="Gray"/>
+            <Setter Property="Margin" Value="1,0,0,1"/>
+            <Setter Property="Padding" Value="1,7,0,1"/>
+            
+        </Style>
+
+        <Style TargetType="ComboBox">
+            <Setter Property="BorderThickness" Value="0,0,0,1.5"/>
+            <Setter Property="Margin" Value="1,0,0,1"/>
+            <Setter Property="Foreground" Value="DarkSlateGray" />
+        </Style>
+
+
+        <!-- INDIVIDUAL -->
+
+        <Style x:Key="Textbox_vnos" TargetType="{x:Type TextBox}">
+            <Setter Property="Background" Value="LightPink"/>
+            <Setter Property="BorderThickness" Value="0,0,0,2.5"/>
+            <Setter Property="BorderBrush" Value="Gray"/>
+            <Setter Property="Foreground" Value="DarkSlateGray" />
+            <Setter Property="Margin" Value="1,0,0,1"/>
+            <Setter Property="Margin" Value="1,0,0,1"/>
+            <Setter Property="Padding" Value="1,7,0,1"/>
+        </Style>
+
+        <Style x:Key="Textbox_rezultat" TargetType="{x:Type TextBox}">
+            <Setter Property="Background" Value="LightCyan"/>
+            <Setter Property="BorderThickness" Value="0,0,0,2.5"/>
+            <Setter Property="BorderBrush" Value="Gray"/>
+            <Setter Property="Margin" Value="1,0,0,1"/>
+        </Style>
+
+        <Style x:Key="Label_naslov" TargetType="{x:Type Label}">
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="12" />
+        </Style>
+
     </Application.Resources>
 </Application>

@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:B.E.E._calculator.Pogledi"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="1100">
     <Grid Background="LightYellow">
         <TabControl>
             <TabItem Header="Sistem ogrevanja">
@@ -73,8 +73,139 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Generatorji">
-                <Grid>
-                    
+                <Grid Background="LightYellow" ShowGridLines="False">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="70"/>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition Width="auto"/>
+
+                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition Width="auto"/>
+
+                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition Width="auto"/>
+
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="25"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+
+                        <RowDefinition Height="25"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Style="{StaticResource Label_naslov}"  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalContentAlignment="center" Content="Generator toplote" FontWeight="Bold"/>
+
+                    <Label Grid.Row="3" Grid.Column="3"  Content="Ime kotla" MinWidth="100" HorizontalContentAlignment="Center"/>
+                    <Label Grid.Row="3" Grid.Column="5"  Content="Namembnost" MinWidth="170" HorizontalContentAlignment="Center"/>
+                    <Label Grid.Row="3" Grid.Column="7"  Content="Moč (kW)" MinWidth="100" HorizontalContentAlignment="Center"/>
+                    <Label Grid.Row="3" Grid.Column="9" Grid.ColumnSpan="3" Content="Razmerje moči ogr TV (kW)" MinWidth="200" HorizontalContentAlignment="Center"/>
+
+
+                    <!-- ==================================================== KOTEL 1 ======================================================= -->
+                    <CheckBox Checked="CheckboxKotel1" Unchecked="CheckboxKotel1" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <Label x:Name="label_kotel1" IsEnabled="False" Opacity="0.5" Grid.Row="4" Grid.Column="1" Content="Generator toplote 1" HorizontalContentAlignment="center"/>
+                    <TextBox x:Name="ime_kotel1" IsEnabled="False" Opacity="0.5" Grid.Row="4" Grid.Column="3" MinWidth="100"/>
+                    <ComboBox x:Name="namembnost_kotel1" IsEnabled="False" Opacity="0.5" Grid.Row="4" Grid.Column="5" VerticalAlignment="Center" MinWidth="170" SelectionChanged="namembnost_drsnik_prikazi_kotel1">
+                        <ComboBoxItem x:Name="ogrevanje_in_topla_voda_kot1" >Ogrevanje in topla voda</ComboBoxItem>
+                        <ComboBoxItem x:Name="samo_ogrevanje_kot1">Ogrevanje</ComboBoxItem>
+                        <ComboBoxItem x:Name="samo_topla_voda_kot1">Topla voda</ComboBoxItem>
+                    </ComboBox>
+                    <TextBox x:Name="moc_kotel1" IsEnabled="False" Opacity="0.5" Grid.Row="4" Grid.Column="7" MinWidth="100"/>
+
+                    <TextBox x:Name="ogrevanje_kotel1" IsEnabled="False" Opacity="0.5" Grid.Row="4" Grid.Column="9" MinWidth="35"/>
+                    <TextBox x:Name="voda_kotel1" IsEnabled="False" Opacity="0.5" Grid.Row="4" Grid.Column="11" MinWidth="35"/>
+                    <Slider x:Name="drsnik_kotel1" IsEnabled="False" Opacity="0.5" Grid.Row="4" Grid.Column="10" Minimum="0" Maximum="100" Value="50" ValueChanged="drsnik_value_kotel1"/>
+                    <!-- ==================================================================================================================== -->
+
+                    <!-- ==================================================== KOTEL 2 ======================================================= -->
+                    <CheckBox Checked="CheckboxKotel2" Unchecked="CheckboxKotel2" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <Label x:Name="label_kotel2" Grid.Row="5" IsEnabled="False" Opacity="0.5" Grid.Column="1" Content="Generator toplote 2" HorizontalContentAlignment="center"/>
+                    <TextBox x:Name="ime_kotel2" Grid.Row="5" IsEnabled="False" Opacity="0.5" Grid.Column="3" MinWidth="100"/>
+                    <ComboBox x:Name="namembnost_kotel2" IsEnabled="False" Opacity="0.5" Grid.Row="5" Grid.Column="5" VerticalAlignment="Center" MinWidth="170" SelectionChanged="namembnost_drsnik_prikazi_kotel2">
+                        <ComboBoxItem x:Name="ogrevanje_in_topla_voda_kot2" >Ogrevanje in topla voda</ComboBoxItem>
+                        <ComboBoxItem x:Name="samo_ogrevanje_kot2">Ogrevanje</ComboBoxItem>
+                        <ComboBoxItem x:Name="samo_topla_voda_kot2">Topla voda</ComboBoxItem>
+                    </ComboBox>
+                    <TextBox x:Name="moc_kotel2" IsEnabled="False" Opacity="0.5" Grid.Row="5" Grid.Column="7" MinWidth="100"/>
+
+                    <TextBox x:Name="ogrevanje_kotel2" IsEnabled="False" Opacity="0.5" Grid.Row="5" Grid.Column="9" MinWidth="35"/>
+                    <TextBox x:Name="voda_kotel2" IsEnabled="False" Opacity="0.5" Grid.Row="5" Grid.Column="11" MinWidth="35"/>
+                    <Slider x:Name="drsnik_kotel2" IsEnabled="False" Opacity="0.5" Grid.Row="5" Grid.Column="10" Minimum="0" Maximum="100" Value="50" ValueChanged="drsnik_value_kotel2"/>
+                    <!-- ==================================================================================================================== -->
+
+                    <!-- ==================================================== KOTEL 3 ======================================================= -->
+                    <CheckBox Checked="CheckboxKotel3" Unchecked="CheckboxKotel3" Grid.Row="6" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <Label x:Name="label_kotel3" IsEnabled="False" Opacity="0.5" Grid.Row="6" Grid.Column="1" Content="Generator toplote 3" HorizontalContentAlignment="center"/>
+                    <TextBox x:Name="ime_kotel3" IsEnabled="False" Opacity="0.5" Grid.Row="6" Grid.Column="3" MinWidth="100"/>
+                    <ComboBox x:Name="namembnost_kotel3" IsEnabled="False" Opacity="0.5" Grid.Row="6" Grid.Column="5" VerticalAlignment="Center" MinWidth="170" SelectionChanged="namembnost_drsnik_prikazi_kotel3">
+                        <ComboBoxItem x:Name="ogrevanje_in_topla_voda_kot3" >Ogrevanje in topla voda</ComboBoxItem>
+                        <ComboBoxItem x:Name="samo_ogrevanje_kot3">Ogrevanje</ComboBoxItem>
+                        <ComboBoxItem x:Name="samo_topla_voda_kot3">Topla voda</ComboBoxItem>
+                    </ComboBox>
+                    <TextBox x:Name="moc_kotel3" IsEnabled="False" Opacity="0.5" Grid.Row="6" Grid.Column="7" MinWidth="100"/>
+
+                    <TextBox x:Name="ogrevanje_kotel3" IsEnabled="False" Opacity="0.5" Grid.Row="6" Grid.Column="9" MinWidth="35"/>
+                    <TextBox x:Name="voda_kotel3" IsEnabled="False" Opacity="0.5" Grid.Row="6" Grid.Column="11" MinWidth="35"/>
+                    <Slider x:Name="drsnik_kotel3" IsEnabled="False" Opacity="0.5"  Grid.Row="6" Grid.Column="10" Minimum="0" Maximum="100" Value="50"  ValueChanged="drsnik_value_kotel3"/>
+                    <!-- ==================================================================================================================== -->
+
+                    <!-- ==================================================== KOTEL 4 ======================================================= -->
+                    <CheckBox Checked="CheckboxKotel4" Unchecked="CheckboxKotel4" Grid.Row="7" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <Label x:Name="label_kotel4" IsEnabled="False" Opacity="0.5" Grid.Row="7" Grid.Column="1" Content="Generator toplote 4" HorizontalContentAlignment="center"/>
+                    <TextBox x:Name="ime_kotel4" IsEnabled="False" Opacity="0.5" Grid.Row="7" Grid.Column="3" MinWidth="100"/>
+                    <ComboBox x:Name="namembnost_kotel4" IsEnabled="False" Opacity="0.5" Grid.Row="7" Grid.Column="5" VerticalAlignment="Center" MinWidth="170" SelectionChanged="namembnost_drsnik_prikazi_kotel4">
+                        <ComboBoxItem x:Name="ogrevanje_in_topla_voda_kot4" >Ogrevanje in topla voda</ComboBoxItem>
+                        <ComboBoxItem x:Name="samo_ogrevanje_kot4">Ogrevanje</ComboBoxItem>
+                        <ComboBoxItem x:Name="samo_topla_voda_kot4">Topla voda</ComboBoxItem>
+                    </ComboBox>
+                    <TextBox x:Name="moc_kotel4" IsEnabled="False" Opacity="0.5" Grid.Row="7" Grid.Column="7" MinWidth="100"/>
+
+                    <TextBox x:Name="ogrevanje_kotel4" IsEnabled="False" Opacity="0.5" Grid.Row="7" Grid.Column="9" MinWidth="35"/>
+                    <TextBox x:Name="voda_kotel4" IsEnabled="False" Opacity="0.5" Grid.Row="7" Grid.Column="11" MinWidth="35"/>
+                    <Slider x:Name="drsnik_kotel4" IsEnabled="False" Opacity="0.5" Grid.Row="7" Grid.Column="10" Minimum="0" Maximum="100" Value="50"  ValueChanged="drsnik_value_kotel4"/>
+                    <!-- ==================================================================================================================== -->
+
+                    <!-- ==================================================== KOTEL 5 ======================================================= -->
+                    <CheckBox Checked="CheckboxKotel5" Unchecked="CheckboxKotel5" Grid.Row="8" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <Label x:Name="label_kotel5" IsEnabled="False" Opacity="0.5" Grid.Row="8" Grid.Column="1" Content="Generator toplote 5" HorizontalContentAlignment="center"/>
+                    <TextBox x:Name="ime_kotel5" IsEnabled="False" Opacity="0.5" Grid.Row="8" Grid.Column="3" MinWidth="100"/>
+                    <ComboBox x:Name="namembnost_kotel5" IsEnabled="False" Opacity="0.5" Grid.Row="8" Grid.Column="5" VerticalAlignment="Center" MinWidth="170" SelectionChanged="namembnost_drsnik_prikazi_kotel5">
+                        <ComboBoxItem x:Name="ogrevanje_in_topla_voda_kot5" >Ogrevanje in topla voda</ComboBoxItem>
+                        <ComboBoxItem x:Name="samo_ogrevanje_kot5">Ogrevanje</ComboBoxItem>
+                        <ComboBoxItem x:Name="samo_topla_voda_kot5">Topla voda</ComboBoxItem>
+                    </ComboBox>
+                    <TextBox x:Name="moc_kotel5" IsEnabled="False" Opacity="0.5" Grid.Row="8" Grid.Column="7" MinWidth="100"/>
+
+                    <TextBox x:Name="ogrevanje_kotel5" IsEnabled="False" Opacity="0.5" Grid.Row="8" Grid.Column="9" MinWidth="35"/>
+                    <TextBox x:Name="voda_kotel5" IsEnabled="False" Opacity="0.5" Grid.Row="8" Grid.Column="11" MinWidth="35"/>
+                    <Slider x:Name="drsnik_kotel5" IsEnabled="False" Opacity="0.5" Grid.Row="8" Grid.Column="10" Minimum="0" Maximum="100" Value="50" ValueChanged="drsnik_value_kotel5"/>
+                    <!-- ==================================================================================================================== -->
                 </Grid>
             </TabItem>
             <TabItem Header="hranilniki toplote">

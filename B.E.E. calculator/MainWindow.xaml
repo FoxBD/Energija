@@ -35,41 +35,41 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            
+
             <Button Grid.Row="1" Grid.Column="0" Click="add_new_project">ADD</Button>
             <Button Grid.Row="1" Grid.Column="1" Click="delete_project">DELETE</Button>
             <Button Grid.Row="1" Grid.Column="2" Click="edit_project">EDIT</Button>
 
             <Button Grid.Row="2" Grid.Column="0" Click="SaveFile">SAVE</Button>
             <Button Grid.Row="2" Grid.Column="1" Click="OpenFile">LOAD</Button>
-            
+
         </Grid>
         <Grid Grid.Column="0">
             <TabControl>
-            <TabItem Header="Projekt">
-                <TabControl>
-                    <TabItem Header="Podatki o projektu">
-                        <Grid>
+                <TabItem Header="Projekt">
+                    <TabControl>
+                        <TabItem Header="Podatki o projektu">
+                            <Grid>
                                 <pogledi:OsnovniPodatki x:Name="osnovniPodatki"/>
                             </Grid>
-                    </TabItem>
-                    <TabItem Header="Meterološki podatki projekta">
-                        <Grid>
+                        </TabItem>
+                        <TabItem Header="Meterološki podatki projekta">
+                            <Grid>
                                 <pogledi:MetoroloskiPodatkiPogled/>
                             </Grid>
-                    </TabItem>
-                </TabControl>
-                
-            </TabItem>
-            <TabItem Header="Cone" >
-                <ScrollViewer HorizontalScrollBarVisibility="Auto">
-                    <Grid>
+                        </TabItem>
+                    </TabControl>
+
+                </TabItem>
+                <TabItem Header="Cone" >
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto">
+                        <Grid>
                             <pogledi:ConePogled/>
                         </Grid>
-                </ScrollViewer>
-            </TabItem>
-            <TabItem Header="Konsturkcije">
-                <TabControl>
+                    </ScrollViewer>
+                </TabItem>
+                <TabItem Header="Konsturkcije">
+                    <TabControl>
                         <TabItem Header="Zunanje">
                             <Grid>
                                 <pogledi:ZunanjeKonstrukcijePogled/>
@@ -100,9 +100,9 @@
                                 <pogledi:NotranjeKonstrukcijePogled/>
                             </Grid>
                         </TabItem>
-                </TabControl>
-            </TabItem>
-            <TabItem Header="Analiza">
+                    </TabControl>
+                </TabItem>
+                <TabItem Header="Analiza">
                     <TabControl>
                         <TabItem Header="Konstrukcije">
                         </TabItem>
@@ -111,7 +111,7 @@
                         <TabItem Header="Stavbe">
                         </TabItem>
                     </TabControl>
-            </TabItem>
+                </TabItem>
                 <TabItem Header="Sistemi">
                     <TabControl>
                         <TabItem Header="Prezračevanje">
@@ -130,7 +130,7 @@
                         <TabItem Header="Hlajenje">
                             <Grid>
                                 <!-- <pogledi:HlajenjeSistemiPogled/> -->
-                             </Grid>
+                            </Grid>
                         </TabItem>
                         <TabItem Header="Razsvetljava">
                             <Grid>
@@ -170,7 +170,7 @@
                 </TabItem>
             </TabControl>
         </Grid>
-        
+
 
     </Grid>
 </Window>
